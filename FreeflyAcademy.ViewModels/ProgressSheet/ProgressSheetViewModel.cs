@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using FreeflyAcademy.Dtos;
 using FreeflyAcademy.Services.Contracts;
@@ -25,7 +26,7 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
             _progressSheetService = progressSheetService;
         }
 
-        public ISkydiverViewModel SkydiversViewModel { get; private set; }
+        public ISkydiverViewModel SkydiverViewModel { get; private set; }
         
         private ITrackProgressSheetViewModel _trackProgressSheetViewModel;
         private IHeadUpProgressSheetViewModel _headUpProgressSheetViewModel;
@@ -63,7 +64,6 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         {
             Load(tile.FirstName, tile.LastName);
         }
-
         private void Load(string firstName, string lastName)
         {
             var skydiverDto = _skydiverService.Get(firstName, lastName);
@@ -77,35 +77,47 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
 
         public void OnFileDrop(string[] filepaths)
         {
-            if (string.IsNullOrWhiteSpace(SkydiversViewModel.VideoDirectoryPath))
+            if (string.IsNullOrWhiteSpace(SkydiverViewModel.VideoDirectoryPath))
             {
                 var infoModal = _kernel.Get<IModalInfoViewModel>();
                 infoModal.Title = "Attention  !";
-                infoModal.Content = $"Le dossier vidéo de {SkydiversViewModel.FirstName} {SkydiversViewModel.LastName} n'a pas été configuré.\n" +
+                infoModal.Content = $"Le dossier vidéo de {SkydiverViewModel.FirstName} {SkydiverViewModel.LastName} n'a pas été configuré.\n" +
                                     $"Vous ne pouvez pas ajouter de vidéos.";
                 Messenger.Default.Send<IModalViewModel>(infoModal);
             }
 
-            if (!Directory.Exists(SkydiversViewModel.VideoDirectoryPath))
+            if (!Directory.Exists(SkydiverViewModel.VideoDirectoryPath))
             {
                 var infoModal = _kernel.Get<IModalInfoViewModel>();
                 infoModal.Title = "Attention  !";
-                infoModal.Content = $"Le dossier \"{SkydiversViewModel.VideoDirectoryPath}\" configuré pour {SkydiversViewModel.FirstName} {SkydiversViewModel.LastName} n'éxiste pas.\n" +
+                infoModal.Content = $"Le dossier \"{SkydiverViewModel.VideoDirectoryPath}\" configuré pour {SkydiverViewModel.FirstName} {SkydiverViewModel.LastName} n'éxiste pas.\n" +
                                     $"Veuillez le corriger afin de pouvoir ajouter des vidéos.";
                 Messenger.Default.Send<IModalViewModel>(infoModal);
             }
+
+            var selectCoachModal = _kernel.Get<ISelectCoachModalViewModel>();
+            selectCoachModal.CoachSelected += (sender, model) =>
+            {
+                foreach (var filepath in filepaths)
+                {
+                    File.Copy(filepath,
+                        Path.Combine(SkydiverViewModel.VideoDirectoryPath,
+                            $"{DateTime.Now:yyMMddHHmm}_{model.FirstName}_{model.LastName}.{Path.GetExtension(filepath)}"));
+                }
+            };
+            Messenger.Default.Send<IModalViewModel>(selectCoachModal);
         }
 
         private void InitSkydiverViewModel(SkydiverDto skydiverDto)
         {
-            SkydiversViewModel = _kernel.Get<ISkydiverViewModel>();
-            SkydiversViewModel.FirstName = skydiverDto.FirstName;
-            SkydiversViewModel.LastName = skydiverDto.LastName;
-            SkydiversViewModel.VideoDirectoryPath = skydiverDto.VideoDirectoryPath;
-            SkydiversViewModel.FreeflyStartingDate = skydiverDto.FreeflyStartingDate;
-            SkydiversViewModel.JumpsCount = skydiverDto.JumpsCount;
-            SkydiversViewModel.SkydiveStartingDate = skydiverDto.SkydiveStartingDate;
-            SkydiversViewModel.PersonalRig = skydiverDto.PersonalRig;
+            SkydiverViewModel = _kernel.Get<ISkydiverViewModel>();
+            SkydiverViewModel.FirstName = skydiverDto.FirstName;
+            SkydiverViewModel.LastName = skydiverDto.LastName;
+            SkydiverViewModel.VideoDirectoryPath = skydiverDto.VideoDirectoryPath;
+            SkydiverViewModel.FreeflyStartingDate = skydiverDto.FreeflyStartingDate;
+            SkydiverViewModel.JumpsCount = skydiverDto.JumpsCount;
+            SkydiverViewModel.SkydiveStartingDate = skydiverDto.SkydiveStartingDate;
+            SkydiverViewModel.PersonalRig = skydiverDto.PersonalRig;
         }
 
         private void InitTrackProgressSheetViewModel(ProgressSheetDto progressSheet)
@@ -131,14 +143,14 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
 
         private void TrackProgressSheetViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var selectCoachModal = _kernel.Get<ISelectCoachModalViewModel>();
+            var selectCoachModal = _kernel.Get<IValidateCoachModalViewModel>();
             selectCoachModal.CoachSelected += (o, model) =>
             {
-                _progressSheetService.Save(SkydiversViewModel.FirstName, SkydiversViewModel.LastName, GetProgressSheetDto());
+                _progressSheetService.Save(SkydiverViewModel.FirstName, SkydiverViewModel.LastName, GetProgressSheetDto());
             };
             selectCoachModal.Cancel += (o, model) =>
             {
-                Load(SkydiversViewModel.FirstName, SkydiversViewModel.LastName);
+                Load(SkydiverViewModel.FirstName, SkydiverViewModel.LastName);
             };
             Messenger.Default.Send<IModalViewModel>(selectCoachModal);
         }

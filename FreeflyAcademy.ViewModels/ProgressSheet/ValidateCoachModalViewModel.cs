@@ -15,7 +15,7 @@ using Ninject;
 
 namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
-    internal class SelectCoachModalViewModel : BaseViewModel, ISelectCoachModalViewModel
+    internal class ValidateCoachModalViewModel : BaseViewModel, IValidateCoachModalViewModel
     {
         private readonly IKernel _kernel;
         private readonly ICoachService _coachService;
@@ -23,7 +23,7 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private ICoachTileViewModel _selectedCoach;
         private string _password;
 
-        public SelectCoachModalViewModel(IKernel kernel, ICoachService coachService)
+        public ValidateCoachModalViewModel(IKernel kernel, ICoachService coachService)
         {
             _kernel = kernel;
             _coachService = coachService;

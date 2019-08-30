@@ -1,9 +1,15 @@
 <Application 
     x:Class="FreeflyAcademy.App" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:FreeflyAcademy.Views.Converters;assembly=FreeflyAcademy.Views"
+    xmlns:freeflyAcademy="clr-namespace:FreeflyAcademy">
     <Application.Resources>
+
         <ResourceDictionary>
+            <freeflyAcademy:InterfaceTemplateSelector x:Key="InterfaceTemplateSelector"></freeflyAcademy:InterfaceTemplateSelector>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></converters:BoolToVisibilityConverter>
+
             <FontFamily x:Key="LemonMilk">pack://application:,,,/FreeflyAcademy.Views;component/Fonts/#Lemon/Milk</FontFamily>
             <FontFamily x:Key="LemonMilkLight">pack://application:,,,/FreeflyAcademy.Views;component/Fonts/#Lemon/Milk light</FontFamily>
             <FontFamily x:Key="CaviarDreams">pack://application:,,,/FreeflyAcademy.Views;component/Fonts/#Caviar Dreams</FontFamily>
@@ -19,9 +25,12 @@
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/SkydiverList.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/ProgressSheet.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/CreateSkydiver.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/Partials/TrackProgressSheet.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/Partials/HeadUpProgressSheet.xaml"/>
 
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Modals/InfoModal.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Modals/SelectCoachModal.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Modals/ValidateCoachModal.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

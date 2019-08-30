@@ -55,6 +55,7 @@
     <Compile Include="IMainViewModel.cs" />
     <Compile Include="ProgressSheet\IProgressSheetViewModel.cs" />
     <Compile Include="ProgressSheet\ISelectCoachModalViewModel.cs" />
+    <Compile Include="ProgressSheet\IValidateCoachModalViewModel.cs" />
     <Compile Include="SkydiverList\ISkydiverListViewModel.cs" />
     <Compile Include="SkydiverList\ISkydiverTileViewModel.cs" />
     <Compile Include="ProgressSheet\ISkydiverViewModel.cs" />

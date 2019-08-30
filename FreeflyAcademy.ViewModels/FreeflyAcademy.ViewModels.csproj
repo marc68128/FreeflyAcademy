@@ -69,7 +69,8 @@
     <Compile Include="ProgressSheet\HeadDownProgressSheetViewModel.cs" />
     <Compile Include="ProgressSheet\HeadUpProgressSheetViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
-    <Compile Include="ProgressSheet\SelectCoachModalViewModel.cs" />
+    <Compile Include="ProgressSheet\SelectCoachModalModalViewModel.cs" />
+    <Compile Include="ProgressSheet\ValidateCoachModalViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressSheet\ProgressSheetViewModel.cs" />

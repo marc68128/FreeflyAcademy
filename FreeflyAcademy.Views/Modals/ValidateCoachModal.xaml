@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:progressSheet="clr-namespace:FreeflyAcademy.ViewModels.Contracts.ProgressSheet;assembly=FreeflyAcademy.ViewModels.Contracts">
+                    xmlns:progressSheet="clr-namespace:FreeflyAcademy.ViewModels.Contracts.ProgressSheet;assembly=FreeflyAcademy.ViewModels.Contracts"
+                    xmlns:behaviours="clr-namespace:FreeflyAcademy.Views.Behaviours">
 
-    <DataTemplate DataType="{x:Type progressSheet:ISelectCoachModalViewModel}">
+    <DataTemplate DataType="{x:Type progressSheet:IValidateCoachModalViewModel}">
         <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -24,6 +25,14 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            <Grid HorizontalAlignment="Stretch" Margin="10" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Mot de passe :"></TextBlock>
+                <PasswordBox Grid.Column="1" behaviours:PasswordBoxAssistant.BindPassword="true"  behaviours:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
+            </Grid>
             <StackPanel HorizontalAlignment="Right" Grid.Row="3" Orientation="Horizontal">
                 <Button HorizontalAlignment="Right" Margin="10" Style="{DynamicResource SquareButtonStyle}" Command="{Binding CancelCommand}">Annuler</Button>
                 <Button HorizontalAlignment="Right" Margin="10" Style="{DynamicResource AccentedSquareButtonStyle}" Command="{Binding ValidateCommand}">Valider</Button>

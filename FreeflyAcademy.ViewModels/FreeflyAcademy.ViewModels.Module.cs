@@ -27,7 +27,8 @@ namespace FreeflyAcademy.ViewModels
             Bind<ICoachTileViewModel>().To<CoachTileViewModel>().InTransientScope();
 
             Bind<IModalInfoViewModel>().To<ModalInfoViewModel>().InTransientScope();
-            Bind<ISelectCoachModalViewModel>().To<SelectCoachModalViewModel>().InTransientScope();
+            Bind<IValidateCoachModalViewModel>().To<ValidateCoachModalViewModel>().InTransientScope();
+            Bind<ISelectCoachModalViewModel>().To<SelectCoachModalModalViewModel>().InTransientScope();
         }
     }
 }

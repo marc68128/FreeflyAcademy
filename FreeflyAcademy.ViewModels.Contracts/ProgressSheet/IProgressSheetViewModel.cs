@@ -5,7 +5,7 @@ namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
 {
     public interface IProgressSheetViewModel : IBaseViewModel, IDragDropTarget
     {
-        ISkydiverViewModel SkydiversViewModel { get; }
+        ISkydiverViewModel SkydiverViewModel { get; }
 
         ITrackProgressSheetViewModel  TrackProgressSheetViewModel { get; set; }
         IHeadUpProgressSheetViewModel HeadUpProgressSheetViewModel { get; set; }

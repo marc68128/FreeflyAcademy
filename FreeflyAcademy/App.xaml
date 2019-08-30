@@ -1,0 +1,25 @@
+<Application 
+    x:Class="FreeflyAcademy.App" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="LemonMilk">pack://application:,,,/FreeflyAcademy.Views;component/Fonts/#Lemon/Milk</FontFamily>
+            <FontFamily x:Key="LemonMilkLight">pack://application:,,,/FreeflyAcademy.Views;component/Fonts/#Lemon/Milk light</FontFamily>
+            <FontFamily x:Key="CaviarDreams">pack://application:,,,/FreeflyAcademy.Views;component/Fonts/#Caviar Dreams</FontFamily>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Skydivers.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/ProgressSheet.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/CreateSkydiver.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

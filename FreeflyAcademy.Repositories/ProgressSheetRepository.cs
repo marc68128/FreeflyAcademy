@@ -18,5 +18,12 @@ namespace FreeflyAcademy.Repositories
 
             return new ProgressSheet();
         }
+
+        public void Save(string firstName, string lastName, ProgressSheet progressSheet)
+        {
+            var filePath = Path.Combine(_repositoryFolderPath, $"{lastName}.{firstName}.progressSheet");
+
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(progressSheet));
+        }
     }
 }

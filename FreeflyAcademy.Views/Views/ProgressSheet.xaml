@@ -1,0 +1,142 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:contracts="clr-namespace:FreeflyAcademy.ViewModels.Contracts;assembly=FreeflyAcademy.ViewModels.Contracts"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:FreeflyAcademy.Views.Converters"
+                    xmlns:enums="clr-namespace:FreeflyAcademy.Enums;assembly=FreeflyAcademy.Enums"
+                    xmlns:behaviours="clr-namespace:FreeflyAcademy.Views.Behaviours"
+                    xmlns:userControls="clr-namespace:FreeflyAcademy.Views.UserControls"
+                    xmlns:progressSheet="clr-namespace:FreeflyAcademy.ViewModels.Contracts.ProgressSheet;assembly=FreeflyAcademy.ViewModels.Contracts">
+
+    <DataTemplate DataType="{x:Type progressSheet:IProgressSheetViewModel}">
+        <DataTemplate.Resources>
+            <converters:AcquisitionLevelConverter x:Key="AcquisitionLevelConverter"></converters:AcquisitionLevelConverter>
+        </DataTemplate.Resources>
+        <Grid AllowDrop="True" behaviours:DragDropBehaviour.IsFileDragDropEnabled="True" behaviours:DragDropBehaviour.FileDragDropTarget="{Binding}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="1" Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Height="100" Width="100" Margin="2" Background="{StaticResource AccentColorBrush}">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock FontSize="18" HorizontalAlignment="Center" Foreground="White" Text="{Binding SkydiversViewModel.FirstName}"></TextBlock>
+                            <TextBlock FontSize="18" HorizontalAlignment="Center" Foreground="White" Text="{Binding SkydiversViewModel.LastName}"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Disabled">
+                        <Grid>
+                            <Grid.RowDefinitions></Grid.RowDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <TabControl Grid.Row="1" Margin="10,0,10,0">
+                <TabItem Header="Track" Grid.IsSharedSizeScope="True">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ColumnNotAcquired"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ColumnInProgress"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ColumnAcquired"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
+                                    <TextBlock  Text="Non" TextAlignment="Center"></TextBlock>
+                                    <TextBlock  Text="acquis" TextAlignment="Center"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="0" Grid.Column="2" Margin="10,0,20,0">
+                                    <TextBlock  Text="En cours" TextAlignment="Center"></TextBlock>
+                                    <TextBlock  Text="d'acquisition" TextAlignment="Center"></TextBlock>
+                                </StackPanel>
+                                <TextBlock VerticalAlignment="Center" Grid.Row="0" Grid.Column="3" Text="Acquis" TextWrapping="Wrap"></TextBlock>
+                            </Grid>
+
+                            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource AccentColorBrush}">
+                                <TextBlock Margin="5"  TextAlignment="Center" Text="Sécurité" FontWeight="Bold"></TextBlock>
+                            </StackPanel>
+
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.SecurityAltitude, Mode=TwoWay}"
+                                Label="Conscience de l'altitude : lecture de l'altimètre"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.SecurityHeading, Mode=TwoWay}"
+                                Label="Identification et respect de l'axe de travail"></userControls:ProgressSheetRow>
+
+                            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource AccentColorBrush}">
+                                <TextBlock Margin="5"  TextAlignment="Center" Text="Acrobaties" FontWeight="Bold"></TextBlock>
+                            </StackPanel>
+
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.HalfBarrel, Mode=TwoWay}"
+                                Label="Demi-tonneau"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.Barrel, Mode=TwoWay}"
+                                Label="Tonneau"></userControls:ProgressSheetRow>
+
+                            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource AccentColorBrush}">
+                                <TextBlock Margin="5"  TextAlignment="Center" Text="Déplacements" FontWeight="Bold"></TextBlock>
+                            </StackPanel>
+
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.SpeedUp, Mode=TwoWay}"
+                                Label="Accélérer"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.SlowDown, Mode=TwoWay}"
+                                Label="Freiner"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.LevelControl, Mode=TwoWay}"
+                                Label="Contrôle des niveaux"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.InertiaControl, Mode=TwoWay}"
+                                Label="Contrôle de l'inertie"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.Back, Mode=TwoWay}"
+                                Label="Initiation à la dérive dos (pour le brevet B4i)"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.BackWithHeading, Mode=TwoWay}"
+                                Label="Dérive dos axée (pour le brevet B4)"></userControls:ProgressSheetRow>
+
+                            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource AccentColorBrush}">
+                                <TextBlock Margin="5"  TextAlignment="Center" Text="Séparation" FontWeight="Bold"></TextBlock>
+                            </StackPanel>
+
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.BreakSignal, Mode=TwoWay}"
+                                Label="Faire un signe de séparation visible"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.BreakHeading, Mode=TwoWay}"
+                                Label="Choisir un axe de dérive"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.BreakEfficiency, Mode=TwoWay}"
+                                Label="Dériver de façon efficace"></userControls:ProgressSheetRow>
+                            <userControls:ProgressSheetRow 
+                                ProgressSheetItem="{Binding TrackProgressSheetViewModel.BreakBarrelAndOpeningSignal, Mode=TwoWay}"
+                                Label="Faire un tonneau et un signe d'ouverture"></userControls:ProgressSheetRow>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem Header="Tête en haut">
+                    <Label Content="CQSDqsdQSDqsd.." />
+                </TabItem>
+
+                <TabItem Header="Tête en bas">
+                    <Label Content="dfgsfgh..." />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

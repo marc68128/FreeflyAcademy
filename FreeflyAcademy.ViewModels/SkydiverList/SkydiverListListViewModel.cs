@@ -4,18 +4,22 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using FreeflyAcademy.Dtos;
+using FreeflyAcademy.ViewModels.Base;
+using FreeflyAcademy.ViewModels.Contracts.Base;
+using FreeflyAcademy.ViewModels.Contracts.CreateSkydiver;
+using FreeflyAcademy.ViewModels.Contracts.SkydiverList;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Ninject;
 
 namespace FreeflyAcademy.ViewModels
 {
-    internal class SkydiversViewModel : BaseViewModel, ISkydiversViewModel
+    internal class SkydiverListListViewModel : BaseViewModel, ISkydiverListViewModel
     {
         private readonly IKernel _kernel;
         private readonly ISkydiverService _skydiversService;
 
-        public SkydiversViewModel(IKernel _kernel, ISkydiverService skydiversService)
+        public SkydiverListListViewModel(IKernel _kernel, ISkydiverService skydiversService)
         {
             this._kernel = _kernel;
             _skydiversService = skydiversService;

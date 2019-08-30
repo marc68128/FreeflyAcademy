@@ -1,6 +1,6 @@
 ﻿using FreeflyAcademy.Enums;
 
-namespace FreeflyAcademy.ViewModels.Contracts
+namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
 {
     public interface IHeadUpProgressSheetViewModel
     {

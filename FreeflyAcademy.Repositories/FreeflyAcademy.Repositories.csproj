@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractFolderRepository.cs" />
+    <Compile Include="CoachRepository.cs" />
     <Compile Include="FreeflyAcademy.Repositories.Module.cs" />
     <Compile Include="ProgressSheetRepository.cs" />
     <Compile Include="SkydiverRepository.cs" />

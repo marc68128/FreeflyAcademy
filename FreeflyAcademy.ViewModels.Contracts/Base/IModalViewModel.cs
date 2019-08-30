@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreeflyAcademy.Domain
+namespace FreeflyAcademy.ViewModels.Contracts.Base
 {
-    public class Coach : Person
+    public interface IModalViewModel : IBaseViewModel
     {
-        public string Md5Password { get; set; }
     }
 }

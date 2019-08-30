@@ -24,5 +24,13 @@ namespace FreeflyAcademy.Services
 
             return progressSheetDto;
         }
+
+        public void Save(string firstName, string lastName, ProgressSheetDto progressSheetDto)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ProgressSheetDto, ProgressSheet>());
+            var progressSheet = config.CreateMapper().Map<ProgressSheet>(progressSheetDto);
+
+            _progressSheetRepository.Save(firstName, lastName, progressSheet);
+        }
     }
 }

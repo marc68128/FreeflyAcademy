@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:base="clr-namespace:FreeflyAcademy.ViewModels.Contracts.Base;assembly=FreeflyAcademy.ViewModels.Contracts">
+
+    <DataTemplate DataType="{x:Type base:IModalInfoViewModel}">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="White">
+            <TextBlock Margin="10" Text="{Binding Title}" FontSize="20" Foreground="{StaticResource AccentColorBrush}"></TextBlock>
+            <TextBlock Margin="10" FontFamily="{DynamicResource CaviarDreams}" FontWeight="Bold" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+            <Button HorizontalAlignment="Right" Margin="10" Style="{DynamicResource AccentedSquareButtonStyle}" Command="{Binding OkCommand}">OK</Button>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

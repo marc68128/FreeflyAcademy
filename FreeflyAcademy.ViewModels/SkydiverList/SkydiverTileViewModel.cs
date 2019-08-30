@@ -1,22 +1,23 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using FreeflyAcademy.Services.Contracts;
+using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts;
+using FreeflyAcademy.ViewModels.Contracts.Base;
+using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
+using FreeflyAcademy.ViewModels.Contracts.SkydiverList;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using Ninject;
 
-namespace FreeflyAcademy.ViewModels
+namespace FreeflyAcademy.ViewModels.SkydiverList
 {
     internal class SkydiverTileViewModel : BaseViewModel, ISkydiverTileViewModel
     {
         private readonly IKernel _kernel;
-        private readonly ISkydiverService _skydiverService;
 
-        public SkydiverTileViewModel(IKernel kernel, ISkydiverService skydiverService)
+        public SkydiverTileViewModel(IKernel kernel)
         {
             _kernel = kernel;
-            _skydiverService = skydiverService;
             InitCommands();
         }
 

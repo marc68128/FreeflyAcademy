@@ -1,11 +1,9 @@
-﻿using System;
-using FreeflyAcademy.ViewModels.Annotations;
-using FreeflyAcademy.ViewModels.Contracts;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using GalaSoft.MvvmLight.Messaging;
+using FreeflyAcademy.ViewModels.Annotations;
+using FreeflyAcademy.ViewModels.Contracts.Base;
 
-namespace FreeflyAcademy.ViewModels
+namespace FreeflyAcademy.ViewModels.Base
 {
     internal class BaseViewModel : INotifyPropertyChanged, IBaseViewModel
     {

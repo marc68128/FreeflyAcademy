@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
+using FreeflyAcademy.ViewModels.Contracts.Base;
 
-namespace FreeflyAcademy.ViewModels.Contracts
+namespace FreeflyAcademy.ViewModels.Contracts.CreateSkydiver
 {
     public interface ICreateSkydiverViewModel : IBaseViewModel
     {

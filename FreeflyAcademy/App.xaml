@@ -16,9 +16,12 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
 
-                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Skydivers.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/ProgressSheet.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/CreateSkydiver.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/SkydiverList.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/ProgressSheet.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/CreateSkydiver.xaml"/>
+
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Modals/InfoModal.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Modals/SelectCoachModal.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

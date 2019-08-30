@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FreeflyAcademy.Enums;
+﻿using FreeflyAcademy.Enums;
+using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts;
+using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
 
-namespace FreeflyAcademy.ViewModels
+namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
     internal class TrackProgressSheetViewModel : BaseViewModel, ITrackProgressSheetViewModel
     {

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoachService.cs" />
     <Compile Include="FreeflyAcademy.Services.Module.cs" />
     <Compile Include="ProgressSheetService.cs" />
     <Compile Include="SkydiverService.cs" />

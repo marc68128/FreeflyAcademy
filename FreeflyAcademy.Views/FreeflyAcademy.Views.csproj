@@ -72,7 +72,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviours\DragDropBehaviour.cs" />
     <Compile Include="Converters\AcquisitionLevelConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -88,6 +90,9 @@
     </Compile>
     <Compile Include="UserControls\FolderPicker.xaml.cs">
       <DependentUpon>FolderPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ProgressSheetRow.xaml.cs">
+      <DependentUpon>ProgressSheetRow.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -110,19 +115,31 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CreateSkydiver.xaml">
+    <Page Include="Modals\SelectCoachModal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ProgressSheet.xaml">
+    <Page Include="Modals\InfoModal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Skydivers.xaml">
+    <Page Include="Views\CreateSkydiver.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProgressSheet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SkydiverList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FolderPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ProgressSheetRow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

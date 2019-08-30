@@ -1,6 +1,7 @@
 ﻿using System;
+using FreeflyAcademy.ViewModels.Contracts.Base;
 
-namespace FreeflyAcademy.ViewModels.Contracts
+namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
 {
     public interface ISkydiverViewModel : IBaseViewModel
     {

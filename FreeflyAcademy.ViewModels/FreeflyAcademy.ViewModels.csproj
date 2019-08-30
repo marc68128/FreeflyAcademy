@@ -62,16 +62,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseViewModel.cs" />
-    <Compile Include="CreateSkydiverViewModel.cs" />
+    <Compile Include="Base\BaseViewModel.cs" />
+    <Compile Include="Base\ModalInfoViewModel.cs" />
+    <Compile Include="CreateSkydiver\CreateSkydiverViewModel.cs" />
+    <Compile Include="ProgressSheet\CoachTileViewModel.cs" />
+    <Compile Include="ProgressSheet\HeadDownProgressSheetViewModel.cs" />
+    <Compile Include="ProgressSheet\HeadUpProgressSheetViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="ProgressSheet\SelectCoachModalViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProgressSheetViewModel.cs" />
-    <Compile Include="SkydiversViewModel.cs" />
-    <Compile Include="SkydiverTileViewModel.cs" />
-    <Compile Include="SkydiverViewModel.cs" />
-    <Compile Include="TrackProgressSheetViewModel.cs" />
+    <Compile Include="ProgressSheet\ProgressSheetViewModel.cs" />
+    <Compile Include="SkydiverList\SkydiverListListViewModel.cs" />
+    <Compile Include="SkydiverList\SkydiverTileViewModel.cs" />
+    <Compile Include="ProgressSheet\SkydiverViewModel.cs" />
+    <Compile Include="ProgressSheet\TrackProgressSheetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FreeflyAcademy.ViewModels.Module.cs" />

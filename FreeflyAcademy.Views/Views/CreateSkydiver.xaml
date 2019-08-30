@@ -2,9 +2,10 @@
                     xmlns:contracts="clr-namespace:FreeflyAcademy.ViewModels.Contracts;assembly=FreeflyAcademy.ViewModels.Contracts"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:userControls="clr-namespace:FreeflyAcademy.Views.UserControls">
+                    xmlns:userControls="clr-namespace:FreeflyAcademy.Views.UserControls"
+                    xmlns:createSkydiver="clr-namespace:FreeflyAcademy.ViewModels.Contracts.CreateSkydiver;assembly=FreeflyAcademy.ViewModels.Contracts">
 
-    <DataTemplate DataType="{x:Type contracts:ICreateSkydiverViewModel}">
+    <DataTemplate DataType="{x:Type createSkydiver:ICreateSkydiverViewModel}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>

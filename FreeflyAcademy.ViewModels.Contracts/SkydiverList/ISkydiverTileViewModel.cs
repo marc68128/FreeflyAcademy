@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using FreeflyAcademy.ViewModels.Contracts.Base;
 
-namespace FreeflyAcademy.ViewModels.Contracts
+namespace FreeflyAcademy.ViewModels.Contracts.SkydiverList
 {
     public interface ISkydiverTileViewModel : IBaseViewModel
     {

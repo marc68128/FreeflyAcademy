@@ -1,11 +1,29 @@
 ﻿using System;
+using System.Windows.Input;
+using FreeflyAcademy.Dtos;
 using FreeflyAcademy.Services.Contracts;
+using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts;
+using FreeflyAcademy.ViewModels.Contracts.Base;
+using FreeflyAcademy.ViewModels.Contracts.CreateSkydiver;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
+using Ninject;
 
-namespace FreeflyAcademy.ViewModels
+namespace FreeflyAcademy.ViewModels.CreateSkydiver
 {
-    internal class SkydiverViewModel : BaseViewModel, ISkydiverViewModel
+    internal class CreateSkydiverViewModel : BaseViewModel, ICreateSkydiverViewModel
     {
+        private readonly IKernel _kernel;
+        private readonly ISkydiverService _skydiverService;
+
+        public CreateSkydiverViewModel(IKernel kernel, ISkydiverService skydiverService)
+        {
+            _kernel = kernel;
+            _skydiverService = skydiverService;
+            InitCommands();
+        }
+
         private string _firstName;
         private string _lastName;
         private string _videoDirectoryPath;
@@ -76,6 +94,33 @@ namespace FreeflyAcademy.ViewModels
                 _freeflyStartingDate = value;
                 OnPropertyChanged(nameof(FreeflyStartingDate));
             }
+        }
+        
+        public ICommand SaveCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
+
+        private void InitCommands()
+        {
+            SaveCommand = new RelayCommand(() =>
+            {
+                _skydiverService.Add(new SkydiverDto
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    VideoDirectoryPath = VideoDirectoryPath, 
+                    PersonalRig = PersonalRig, 
+                    JumpsCount = JumpsCount,
+                    SkydiveStartingDate = SkydiveStartingDate,
+                    FreeflyStartingDate = FreeflyStartingDate
+                });
+
+                Messenger.Default.Send<IBaseViewModel>(_kernel.Get<SkydiverListListViewModel>());
+            });
+
+            CancelCommand = new RelayCommand(() =>
+            {
+                Messenger.Default.Send<IBaseViewModel>(_kernel.Get<SkydiverListListViewModel>());
+            });
         }
     }
 }

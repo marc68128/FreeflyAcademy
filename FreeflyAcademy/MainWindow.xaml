@@ -5,15 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FreeflyAcademy"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:converters="clr-namespace:FreeflyAcademy.Views.Converters;assembly=FreeflyAcademy.Views"
         mc:Ignorable="d"
         FontFamily="{StaticResource LemonMilk}"
         Title="Strasbourg Freefly Academy" Height="450" Width="800">
 
     <Window.Resources>
         <local:InterfaceTemplateSelector x:Key="InterfaceTemplateSelector"></local:InterfaceTemplateSelector>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></converters:BoolToVisibilityConverter>
     </Window.Resources>
 
     <Grid>
         <ContentControl Content="{Binding ViewModel}" ContentTemplateSelector="{StaticResource InterfaceTemplateSelector}" />
+        <Grid Visibility="{Binding ShowModal, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid Background="Black" Opacity="0.6"></Grid>
+            <ContentControl Margin="50" Content="{Binding ModalViewModel}" ContentTemplateSelector="{StaticResource InterfaceTemplateSelector}" />
+        </Grid>
     </Grid>
 </mah:MetroWindow>

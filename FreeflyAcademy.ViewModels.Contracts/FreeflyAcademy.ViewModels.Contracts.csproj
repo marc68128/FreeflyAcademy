@@ -44,16 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBaseViewModel.cs" />
-    <Compile Include="ICreateSkydiverViewModel.cs" />
-    <Compile Include="IHeadDownProgressSheetViewModel.cs" />
-    <Compile Include="IHeadUpProgressSheetViewModel.cs" />
+    <Compile Include="Base\IBaseViewModel.cs" />
+    <Compile Include="Base\IModalInfoViewModel.cs" />
+    <Compile Include="Base\IModalViewModel.cs" />
+    <Compile Include="CreateSkydiver\ICreateSkydiverViewModel.cs" />
+    <Compile Include="Base\IDragDropTarget.cs" />
+    <Compile Include="ProgressSheet\ICoachTileViewModel.cs" />
+    <Compile Include="ProgressSheet\IHeadDownProgressSheetViewModel.cs" />
+    <Compile Include="ProgressSheet\IHeadUpProgressSheetViewModel.cs" />
     <Compile Include="IMainViewModel.cs" />
-    <Compile Include="IProgressSheetViewModel.cs" />
-    <Compile Include="ISkydiversViewModel.cs" />
-    <Compile Include="ISkydiverTileViewModel.cs" />
-    <Compile Include="ISkydiverViewModel.cs" />
-    <Compile Include="ITrackProgressSheetViewModel.cs" />
+    <Compile Include="ProgressSheet\IProgressSheetViewModel.cs" />
+    <Compile Include="ProgressSheet\ISelectCoachModalViewModel.cs" />
+    <Compile Include="SkydiverList\ISkydiverListViewModel.cs" />
+    <Compile Include="SkydiverList\ISkydiverTileViewModel.cs" />
+    <Compile Include="ProgressSheet\ISkydiverViewModel.cs" />
+    <Compile Include="ProgressSheet\ITrackProgressSheetViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

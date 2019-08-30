@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:contracts="clr-namespace:FreeflyAcademy.ViewModels.Contracts;assembly=FreeflyAcademy.ViewModels.Contracts"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:skydiverList="clr-namespace:FreeflyAcademy.ViewModels.Contracts.SkydiverList;assembly=FreeflyAcademy.ViewModels.Contracts">
 
-    <DataTemplate DataType="{x:Type contracts:ISkydiversViewModel}">
+    <DataTemplate DataType="{x:Type skydiverList:ISkydiverListViewModel}">
         <Grid x:Name="RootGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>

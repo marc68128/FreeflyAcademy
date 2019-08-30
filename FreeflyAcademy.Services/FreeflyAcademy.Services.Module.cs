@@ -1,5 +1,4 @@
-﻿using FreeflyAcademy.Repositories.Contracts;
-using FreeflyAcademy.Services.Contracts;
+﻿using FreeflyAcademy.Services.Contracts;
 using Ninject.Modules;
 
 namespace FreeflyAcademy.Services
@@ -10,6 +9,7 @@ namespace FreeflyAcademy.Services
         {
             Bind<ISkydiverService>().To<SkydiverService>().InSingletonScope();
             Bind<IProgressSheetService>().To<ProgressSheetService>().InSingletonScope();
+            Bind<ICoachService>().To<CoachService>().InSingletonScope();
         }
     }
 }

@@ -102,7 +102,7 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 {
                     File.Copy(filepath,
                         Path.Combine(SkydiverViewModel.VideoDirectoryPath,
-                            $"{DateTime.Now:yyMMddHHmm}_{model.FirstName}_{model.LastName}.{Path.GetExtension(filepath)}"));
+                            $"{DateTime.Now:yyMMddHHmm}_{model.FirstName}_{model.LastName}{Path.GetExtension(filepath)}"));
                 }
             };
             Messenger.Default.Send<IModalViewModel>(selectCoachModal);
@@ -125,23 +125,66 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
             TrackProgressSheetViewModel = _kernel.Get<ITrackProgressSheetViewModel>();
 
             TrackProgressSheetViewModel.SecurityAltitude = progressSheet.TrackSecurityAltitude;
+            TrackProgressSheetViewModel.SecurityHeading = progressSheet.TrackSecurityHeading;
+            TrackProgressSheetViewModel.HalfBarrel = progressSheet.TrackHalfBarrel;
+            TrackProgressSheetViewModel.Barrel = progressSheet.TrackBarrel;
+            TrackProgressSheetViewModel.SpeedUp = progressSheet.TrackSpeedUp;
+            TrackProgressSheetViewModel.SlowDown = progressSheet.TrackSlowDown;
+            TrackProgressSheetViewModel.LevelControl = progressSheet.TrackLevelControl;
             TrackProgressSheetViewModel.InertiaControl = progressSheet.TrackInertiaControl;
             TrackProgressSheetViewModel.Back = progressSheet.TrackBack;
             TrackProgressSheetViewModel.BackWithHeading = progressSheet.TrackBackWithHeading;
-            TrackProgressSheetViewModel.Barrel = progressSheet.TrackBarrel;
             TrackProgressSheetViewModel.BreakBarrelAndOpeningSignal = progressSheet.TrackBreakBarrelAndOpeningSignal;
             TrackProgressSheetViewModel.BreakEfficiency = progressSheet.TrackBreakEfficiency;
             TrackProgressSheetViewModel.BreakHeading = progressSheet.TrackBreakHeading;
             TrackProgressSheetViewModel.BreakSignal = progressSheet.TrackBreakSignal;
-            TrackProgressSheetViewModel.HalfBarrel = progressSheet.TrackHalfBarrel;
-            TrackProgressSheetViewModel.SlowDown = progressSheet.TrackSlowDown;
-            TrackProgressSheetViewModel.SpeedUp = progressSheet.TrackSpeedUp;
-            TrackProgressSheetViewModel.LevelControl = progressSheet.TrackLevelControl;
 
-            TrackProgressSheetViewModel.PropertyChanged += TrackProgressSheetViewModelOnPropertyChanged;
+            TrackProgressSheetViewModel.PropertyChanged += ProgressSheetViewModelOnPropertyChanged;
         }
 
-        private void TrackProgressSheetViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void InitHeadUpProgressSheetViewModel(ProgressSheetDto progressSheet)
+        {
+            HeadUpProgressSheetViewModel = _kernel.Get<IHeadUpProgressSheetViewModel>();
+
+            HeadUpProgressSheetViewModel.SecurityAltitude = progressSheet.HeadUpSecurityAltitude;
+            HeadUpProgressSheetViewModel.SecurityReactivity = progressSheet.HeadUpSecurityReactivity;
+            HeadUpProgressSheetViewModel.SecurityEase = progressSheet.HeadUpSecurityEase;
+            HeadUpProgressSheetViewModel.SecurityHeading = progressSheet.HeadUpSecurityHeading;
+            HeadUpProgressSheetViewModel.Spin = progressSheet.HeadUpSpin;
+            HeadUpProgressSheetViewModel.Barrel = progressSheet.HeadUpBarrel;
+            HeadUpProgressSheetViewModel.Loop = progressSheet.HeadUpLoop;
+            HeadUpProgressSheetViewModel.Level = progressSheet.HeadUpLevel;
+            HeadUpProgressSheetViewModel.Inertia = progressSheet.HeadUpInertia;
+            HeadUpProgressSheetViewModel.BreakAltitude = progressSheet.HeadUpBreakAltitude;
+            HeadUpProgressSheetViewModel.BreakSignal = progressSheet.HeadUpBreakSignal;
+            HeadUpProgressSheetViewModel.BreakTrack = progressSheet.HeadUpBreakTrack;
+            HeadUpProgressSheetViewModel.BreakEfficiency = progressSheet.HeadUpBreakEfficiency;
+
+            HeadUpProgressSheetViewModel.PropertyChanged += ProgressSheetViewModelOnPropertyChanged;
+        }
+
+        private void InitHeadDownProgressSheetViewModel(ProgressSheetDto progressSheet)
+        {
+            HeadDownProgressSheetViewModel = _kernel.Get<IHeadDownProgressSheetViewModel>();
+                
+            HeadDownProgressSheetViewModel.SecurityAltitude = progressSheet.HeadDownSecurityAltitude;
+            HeadDownProgressSheetViewModel.SecurityReactivity = progressSheet.HeadDownSecurityReactivity;
+            HeadDownProgressSheetViewModel.SecurityEase = progressSheet.HeadDownSecurityEase;
+            HeadDownProgressSheetViewModel.SecurityHeading = progressSheet.HeadDownSecurityHeading;
+            HeadDownProgressSheetViewModel.Spin = progressSheet.HeadDownSpin;
+            HeadDownProgressSheetViewModel.Loop = progressSheet.HeadDownLoop;
+            HeadDownProgressSheetViewModel.Barrel = progressSheet.HeadDownBarrel;
+            HeadDownProgressSheetViewModel.Transition = progressSheet.HeadDownTransition;
+            HeadDownProgressSheetViewModel.Inertia = progressSheet.HeadDownInertia;
+            HeadDownProgressSheetViewModel.Level = progressSheet.HeadDownLevel;
+            HeadDownProgressSheetViewModel.BreakSignal = progressSheet.HeadDownBreakSignal;
+            HeadDownProgressSheetViewModel.Break180Track = progressSheet.HeadDownBreak180Track;
+            HeadDownProgressSheetViewModel.BreakBarrelAndOpeningSignal = progressSheet.HeadDownBreakBarrelAndOpeningSignal;
+
+            HeadDownProgressSheetViewModel.PropertyChanged += ProgressSheetViewModelOnPropertyChanged;
+        }
+
+        private void ProgressSheetViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var selectCoachModal = _kernel.Get<IValidateCoachModalViewModel>();
             selectCoachModal.CoachSelected += (o, model) =>
@@ -153,43 +196,6 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 Load(SkydiverViewModel.FirstName, SkydiverViewModel.LastName);
             };
             Messenger.Default.Send<IModalViewModel>(selectCoachModal);
-        }
-
-        private void InitHeadUpProgressSheetViewModel(ProgressSheetDto progressSheet)
-        {
-            HeadUpProgressSheetViewModel = _kernel.Get<IHeadUpProgressSheetViewModel>();
-
-            HeadUpProgressSheetViewModel.SecurityAltitude = progressSheet.HeadUpSecurityAltitude;
-            HeadUpProgressSheetViewModel.Barrel = progressSheet.HeadUpBarrel;
-            HeadUpProgressSheetViewModel.BreakAltitude = progressSheet.HeadUpBreakAltitude;
-            HeadUpProgressSheetViewModel.BreakEfficiency = progressSheet.HeadUpBreakEfficiency;
-            HeadUpProgressSheetViewModel.BreakSignal = progressSheet.HeadUpBreakSignal;
-            HeadUpProgressSheetViewModel.BreakTrack = progressSheet.HeadUpBreakTrack;
-            HeadUpProgressSheetViewModel.Inertia = progressSheet.HeadUpInertia;
-            HeadUpProgressSheetViewModel.Level = progressSheet.HeadUpLevel;
-            HeadUpProgressSheetViewModel.Loop = progressSheet.HeadUpLoop;
-            HeadUpProgressSheetViewModel.SecurityEase = progressSheet.HeadUpSecurityEase;
-            HeadUpProgressSheetViewModel.SecurityHeading = progressSheet.HeadUpSecurityHeading;
-            HeadUpProgressSheetViewModel.Spin = progressSheet.HeadUpSpin;
-        }
-
-        private void InitHeadDownProgressSheetViewModel(ProgressSheetDto progressSheet)
-        {
-            HeadDownProgressSheetViewModel = _kernel.Get<IHeadDownProgressSheetViewModel>();
-                
-            HeadDownProgressSheetViewModel.SecurityAltitude = progressSheet.HeadDownSecurityAltitude;
-            HeadDownProgressSheetViewModel.SecurityReactivity = progressSheet.HeadDownSecurityReactivity;
-            HeadDownProgressSheetViewModel.Barrel = progressSheet.HeadDownBarrel;
-            HeadDownProgressSheetViewModel.BreakSignal = progressSheet.HeadDownBreakSignal;
-            HeadDownProgressSheetViewModel.Inertia = progressSheet.HeadDownInertia;
-            HeadDownProgressSheetViewModel.Level = progressSheet.HeadDownLevel;
-            HeadDownProgressSheetViewModel.Loop = progressSheet.HeadDownLoop;
-            HeadDownProgressSheetViewModel.SecurityEase = progressSheet.HeadDownSecurityEase;
-            HeadDownProgressSheetViewModel.SecurityHeading = progressSheet.HeadDownSecurityHeading;
-            HeadDownProgressSheetViewModel.Spin = progressSheet.HeadDownSpin;
-            HeadDownProgressSheetViewModel.Transition = progressSheet.HeadDownTransition;
-            HeadDownProgressSheetViewModel.Break180Track = progressSheet.HeadDownBreak180Track;
-            HeadDownProgressSheetViewModel.BreakBarrelAndOpeningSignal = progressSheet.HeadDownBreakBarrelAndOpeningSignal;
         }
 
         private ProgressSheetDto GetProgressSheetDto()

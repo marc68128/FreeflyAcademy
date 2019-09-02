@@ -4,7 +4,7 @@
                     xmlns:behaviours="clr-namespace:FreeflyAcademy.Views.Behaviours">
 
     <DataTemplate DataType="{x:Type progressSheet:IValidateCoachModalViewModel}">
-        <Grid Background="White">
+        <Grid Background="White" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -13,7 +13,7 @@
             </Grid.RowDefinitions>
             <TextBlock Margin="10" Text="Validation" FontSize="20" Foreground="{StaticResource AccentColorBrush}"></TextBlock>
 
-            <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Coaches}" SelectedItem="{Binding SelectedCoach, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Coaches}" SelectedItem="{Binding SelectedCoach, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -30,7 +30,7 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Mot de passe :"></TextBlock>
+                <TextBlock Text="Mot de passe : " VerticalAlignment="Center"></TextBlock>
                 <PasswordBox Grid.Column="1" behaviours:PasswordBoxAssistant.BindPassword="true"  behaviours:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></PasswordBox>
             </Grid>
             <StackPanel HorizontalAlignment="Right" Grid.Row="3" Orientation="Horizontal">

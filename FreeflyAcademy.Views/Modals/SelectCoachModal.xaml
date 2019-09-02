@@ -12,7 +12,7 @@
             </Grid.RowDefinitions>
             <TextBlock Margin="10" Text="Validation" FontSize="20" Foreground="{StaticResource AccentColorBrush}"></TextBlock>
 
-            <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Coaches}" SelectedItem="{Binding SelectedCoach, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Coaches}" SelectedItem="{Binding SelectedCoach, Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>

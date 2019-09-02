@@ -6,7 +6,8 @@ namespace FreeflyAcademy.ViewModels.Contracts.SkydiverList
 {
     public interface ISkydiverListViewModel : IBaseViewModel
     {
-        ObservableCollection<ISkydiverTileViewModel> SkydiverTiles { get; set; }
+        ObservableCollection<ISkydiverTileViewModel> FilteredSkydiverTiles { get; set; }
         ICommand AddSkydiverCommand { get; }
+        string SearchText { get; set; }
     }
 }

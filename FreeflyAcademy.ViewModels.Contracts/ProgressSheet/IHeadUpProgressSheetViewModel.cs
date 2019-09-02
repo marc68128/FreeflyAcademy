@@ -1,8 +1,9 @@
 ﻿using FreeflyAcademy.Enums;
+using FreeflyAcademy.ViewModels.Contracts.Base;
 
 namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
 {
-    public interface IHeadUpProgressSheetViewModel
+    public interface IHeadUpProgressSheetViewModel : IBaseViewModel
     {
         AcquisitionLevel SecurityAltitude { get; set; }
         AcquisitionLevel SecurityReactivity { get; set; }

@@ -44,11 +44,11 @@
                     <ContentPresenter Content="{Binding TrackProgressSheetViewModel}" ContentTemplateSelector="{DynamicResource InterfaceTemplateSelector}"></ContentPresenter>
                 </TabItem>
 
-                <TabItem Header="Tête en haut">
+                <TabItem Header="Tête en haut" Grid.IsSharedSizeScope="True">
                     <ContentPresenter Content="{Binding HeadUpProgressSheetViewModel}" ContentTemplateSelector="{DynamicResource InterfaceTemplateSelector}"></ContentPresenter>
                 </TabItem>
 
-                <TabItem Header="Tête en bas">
+                <TabItem Header="Tête en bas" Grid.IsSharedSizeScope="True">
                     <ContentPresenter Content="{Binding HeadDownProgressSheetViewModel}" ContentTemplateSelector="{DynamicResource InterfaceTemplateSelector}"></ContentPresenter>
                 </TabItem>
             </TabControl>

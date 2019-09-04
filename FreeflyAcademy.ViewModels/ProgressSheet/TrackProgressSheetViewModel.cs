@@ -1,11 +1,15 @@
-﻿using FreeflyAcademy.Enums;
+﻿using System;
+using FreeflyAcademy.Dtos;
+using FreeflyAcademy.Enums;
+using FreeflyAcademy.Services.Contracts;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
+using Ninject;
 
 namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
-    internal class TrackProgressSheetViewModel : BaseViewModel, ITrackProgressSheetViewModel
+    internal class TrackProgressSheetViewModel : ProgressSheetModuleViewModel<TrackProgressSheetDto>, ITrackProgressSheetViewModel
     {
         private AcquisitionLevel _securityAltitude;
         private AcquisitionLevel _securityHeading;
@@ -21,6 +25,11 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private AcquisitionLevel _breakHeading;
         private AcquisitionLevel _breakEfficiency;
         private AcquisitionLevel _breakBarrelAndOpeningSignal;
+
+
+        public TrackProgressSheetViewModel(IKernel kernel, IProgressSheetService progressSheetService) : base(kernel, progressSheetService)
+        {
+        }
 
         public AcquisitionLevel SecurityAltitude
         {
@@ -147,6 +156,65 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 _breakBarrelAndOpeningSignal = value;
                 OnPropertyChanged(nameof(BreakBarrelAndOpeningSignal));
             }
+        }
+
+        public override void Initialize(string firstName, string lastName, ProgressSheetDto progressSheet)
+        {
+            PropertyChanged -= ProgressSheetViewModelOnPropertyChanged;
+
+            FirstName = firstName;
+            LastName = lastName;
+
+            SecurityAltitude = progressSheet.TrackProgressSheet.SecurityAltitude;
+            SecurityHeading = progressSheet.TrackProgressSheet.SecurityHeading;
+            HalfBarrel = progressSheet.TrackProgressSheet.HalfBarrel;
+            Barrel = progressSheet.TrackProgressSheet.Barrel;
+            SpeedUp = progressSheet.TrackProgressSheet.SpeedUp;
+            SlowDown = progressSheet.TrackProgressSheet.SlowDown;
+            LevelControl = progressSheet.TrackProgressSheet.LevelControl;
+            InertiaControl = progressSheet.TrackProgressSheet.InertiaControl;
+            Back = progressSheet.TrackProgressSheet.Back;
+            BackWithHeading = progressSheet.TrackProgressSheet.BackWithHeading;
+            BreakBarrelAndOpeningSignal = progressSheet.TrackProgressSheet.BreakBarrelAndOpeningSignal;
+            BreakEfficiency = progressSheet.TrackProgressSheet.BreakEfficiency;
+            BreakHeading = progressSheet.TrackProgressSheet.BreakHeading;
+            BreakSignal = progressSheet.TrackProgressSheet.BreakSignal;
+
+            Validated = progressSheet.TrackProgressSheet.Validated;
+            ValidationDate = progressSheet.TrackProgressSheet.ValidationDate;
+            Coach = progressSheet.TrackProgressSheet.Coach;
+
+            PropertyChanged += ProgressSheetViewModelOnPropertyChanged; 
+        }
+
+        public override TrackProgressSheetDto GetProgressSheetDto()
+        {
+            return new TrackProgressSheetDto
+            {
+                SecurityAltitude = SecurityAltitude,
+                SecurityHeading = SecurityHeading,
+                HalfBarrel = HalfBarrel,
+                Barrel = Barrel,
+                SpeedUp = SpeedUp,
+                SlowDown = SlowDown,
+                LevelControl = LevelControl,
+                InertiaControl = InertiaControl,
+                Back = Back,
+                BackWithHeading = BackWithHeading,
+                BreakSignal = BreakSignal,
+                BreakHeading = BreakHeading,
+                BreakEfficiency = BreakEfficiency,
+                BreakBarrelAndOpeningSignal = BreakBarrelAndOpeningSignal,
+
+                Validated = Validated, 
+                Coach = Coach, 
+                ValidationDate = ValidationDate
+            };
+        }
+
+        protected override void Save()
+        {
+            _progressSheetService.Save(FirstName, LastName, GetProgressSheetDto());
         }
     }
 }

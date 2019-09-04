@@ -16,13 +16,13 @@ using Ninject;
 
 namespace FreeflyAcademy.ViewModels
 {
-    internal class SkydiverListListViewModel : BaseViewModel, ISkydiverListViewModel
+    internal class SkydiverListViewModel : BaseViewModel, ISkydiverListViewModel
     {
         private readonly IKernel _kernel;
         private readonly ISkydiverService _skydiversService;
         private List<ISkydiverTileViewModel> _skydivers; 
 
-        public SkydiverListListViewModel(IKernel _kernel, ISkydiverService skydiversService)
+        public SkydiverListViewModel(IKernel _kernel, ISkydiverService skydiversService)
         {
             this._kernel = _kernel;
             _skydiversService = skydiversService;
@@ -64,7 +64,7 @@ namespace FreeflyAcademy.ViewModels
         {
             AddSkydiverCommand = new RelayCommand(() =>
             {
-                Messenger.Default.Send<IBaseViewModel>(_kernel.Get<ICreateSkydiverViewModel>());
+                Messenger.Default.Send<IModalViewModel>(_kernel.Get<ICreateSkydiverModalViewModel>());
             });
         }
 
@@ -73,7 +73,7 @@ namespace FreeflyAcademy.ViewModels
             if (e.PropertyName == nameof(SearchText))
             {
                 FilteredSkydiverTiles.Clear();
-                foreach (var skydiverTileViewModel in _skydivers.Where(t => $"{t.LastName} {t.FirstName}".Contains(SearchText)))
+                foreach (var skydiverTileViewModel in _skydivers.Where(t => $"{t.LastName} {t.FirstName}".Contains(SearchText) || $"{t.FirstName} {t.LastName}".Contains(SearchText)))
                 {
                     FilteredSkydiverTiles.Add(skydiverTileViewModel);
                 }

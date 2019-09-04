@@ -1,4 +1,5 @@
-﻿using FreeflyAcademy.ViewModels.Contracts.Base;
+﻿using System.Windows.Input;
+using FreeflyAcademy.ViewModels.Contracts.Base;
 
 namespace FreeflyAcademy.ViewModels.Contracts
 {
@@ -8,5 +9,6 @@ namespace FreeflyAcademy.ViewModels.Contracts
         IModalViewModel ModalViewModel { get; }
 
         bool ShowModal { get; }
+        ICommand NavigateToHomeCommand { get; }
     }
 }

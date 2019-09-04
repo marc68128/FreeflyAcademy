@@ -2,9 +2,9 @@
 using System.Windows.Input;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 
-namespace FreeflyAcademy.ViewModels.Contracts.CreateSkydiver
+namespace FreeflyAcademy.ViewModels.Contracts.EditSkydiver
 {
-    public interface ICreateSkydiverViewModel : IBaseViewModel
+    public interface IEditSkydiverModalViewModel : IModalViewModel
     {
         string FirstName { get; set; }
         string LastName { get; set; }
@@ -16,5 +16,7 @@ namespace FreeflyAcademy.ViewModels.Contracts.CreateSkydiver
 
         ICommand SaveCommand { get; }
         ICommand CancelCommand { get; }
+
+        IEditSkydiverModalViewModel Initialize(string firstName, string lastName);
     }
 }

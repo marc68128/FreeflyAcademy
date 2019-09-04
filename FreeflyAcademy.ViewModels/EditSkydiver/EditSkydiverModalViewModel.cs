@@ -3,21 +3,21 @@ using System.Windows.Input;
 using FreeflyAcademy.Dtos;
 using FreeflyAcademy.Services.Contracts;
 using FreeflyAcademy.ViewModels.Base;
-using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.Base;
-using FreeflyAcademy.ViewModels.Contracts.CreateSkydiver;
+using FreeflyAcademy.ViewModels.Contracts.EditSkydiver;
+using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Ninject;
 
-namespace FreeflyAcademy.ViewModels.CreateSkydiver
+namespace FreeflyAcademy.ViewModels.EditSkydiver
 {
-    internal class CreateSkydiverViewModel : BaseViewModel, ICreateSkydiverViewModel
+    internal class EditSkydiverModalViewModel : BaseViewModel, IEditSkydiverModalViewModel
     {
         private readonly IKernel _kernel;
         private readonly ISkydiverService _skydiverService;
 
-        public CreateSkydiverViewModel(IKernel kernel, ISkydiverService skydiverService)
+        public EditSkydiverModalViewModel(IKernel kernel, ISkydiverService skydiverService)
         {
             _kernel = kernel;
             _skydiverService = skydiverService;
@@ -99,11 +99,25 @@ namespace FreeflyAcademy.ViewModels.CreateSkydiver
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
 
+        public IEditSkydiverModalViewModel Initialize(string firstName, string lastName)
+        {
+            var skydiverDto = _skydiverService.Get(firstName, lastName);
+            FirstName = skydiverDto.FirstName;
+            LastName = skydiverDto.LastName;
+            VideoDirectoryPath = skydiverDto.VideoDirectoryPath;
+            PersonalRig = skydiverDto.PersonalRig;
+            JumpsCount = skydiverDto.JumpsCount;
+            SkydiveStartingDate = skydiverDto.SkydiveStartingDate;
+            FreeflyStartingDate = skydiverDto.FreeflyStartingDate;
+
+            return this; 
+        }
+
         private void InitCommands()
         {
             SaveCommand = new RelayCommand(() =>
             {
-                _skydiverService.Add(new SkydiverDto
+                _skydiverService.Edit(new SkydiverDto
                 {
                     FirstName = FirstName,
                     LastName = LastName,
@@ -114,12 +128,15 @@ namespace FreeflyAcademy.ViewModels.CreateSkydiver
                     FreeflyStartingDate = FreeflyStartingDate
                 });
 
-                Messenger.Default.Send<IBaseViewModel>(_kernel.Get<SkydiverListListViewModel>());
+                var progressSheetViewModel = _kernel.Get<IProgressSheetViewModel>(); 
+                progressSheetViewModel.Load(FirstName, LastName);
+                Messenger.Default.Send<IBaseViewModel>(progressSheetViewModel);
+                Messenger.Default.Send<IModalViewModel>(null);
             });
 
             CancelCommand = new RelayCommand(() =>
             {
-                Messenger.Default.Send<IBaseViewModel>(_kernel.Get<SkydiverListListViewModel>());
+                Messenger.Default.Send<IModalViewModel>(null);
             });
         }
     }

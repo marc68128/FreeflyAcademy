@@ -41,9 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoachDto.cs" />
+    <Compile Include="HeadDownProgressSheetDto.cs" />
+    <Compile Include="HeadUpProgressSheetDto.cs" />
+    <Compile Include="ProgressSheetModuleDto.cs" />
     <Compile Include="SkydiverDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProgressSheetDto.cs" />
+    <Compile Include="TrackProgressSheetDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FreeflyAcademy.Enums\FreeflyAcademy.Enums.csproj">

@@ -5,8 +5,8 @@
                     xmlns:userControls="clr-namespace:FreeflyAcademy.Views.UserControls"
                     xmlns:createSkydiver="clr-namespace:FreeflyAcademy.ViewModels.Contracts.CreateSkydiver;assembly=FreeflyAcademy.ViewModels.Contracts">
 
-    <DataTemplate DataType="{x:Type createSkydiver:ICreateSkydiverViewModel}">
-        <Grid>
+    <DataTemplate DataType="{x:Type createSkydiver:ICreateSkydiverModalViewModel}">
+        <Grid Background="White" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -15,7 +15,7 @@
 
             <TextBlock Margin="10" Text="Ajouter un freeflyer." FontSize="35"></TextBlock>
 
-            <ScrollViewer Grid.Row="1">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>

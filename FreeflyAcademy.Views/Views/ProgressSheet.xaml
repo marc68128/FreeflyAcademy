@@ -4,12 +4,14 @@
                     xmlns:converters="clr-namespace:FreeflyAcademy.Views.Converters"
                     xmlns:enums="clr-namespace:FreeflyAcademy.Enums;assembly=FreeflyAcademy.Enums"
                     xmlns:behaviours="clr-namespace:FreeflyAcademy.Views.Behaviours"
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                     xmlns:userControls="clr-namespace:FreeflyAcademy.Views.UserControls"
                     xmlns:progressSheet="clr-namespace:FreeflyAcademy.ViewModels.Contracts.ProgressSheet;assembly=FreeflyAcademy.ViewModels.Contracts">
 
     <DataTemplate DataType="{x:Type progressSheet:IProgressSheetViewModel}">
         <DataTemplate.Resources>
             <converters:AcquisitionLevelConverter x:Key="AcquisitionLevelConverter"></converters:AcquisitionLevelConverter>
+            <converters:BitmapToBitmapImageConverter x:Key="BitmapToBitmapImageConverter"></converters:BitmapToBitmapImageConverter>
         </DataTemplate.Resources>
         <Grid AllowDrop="True" behaviours:DragDropBehaviour.IsFileDragDropEnabled="True" behaviours:DragDropBehaviour.FileDragDropTarget="{Binding}">
             <Grid.RowDefinitions>
@@ -18,10 +20,11 @@
             </Grid.RowDefinitions>
 
             <Border Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="1" Margin="10">
-                <Grid>
+                <Grid Height="104">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Grid Height="100" Width="100" Margin="2" Background="{StaticResource AccentColorBrush}">
@@ -31,11 +34,50 @@
                         </StackPanel>
                     </Grid>
 
-                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Disabled">
-                        <Grid>
-                            <Grid.RowDefinitions></Grid.RowDefinitions>
+                    <ListView ItemsSource="{Binding SkydiverViewModel.Files}" BorderThickness="0" Margin="10" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden" behaviours:ScrollViewerBehaviour.ShiftWheelScrollsHorizontally="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding OpenCommand}" MaxWidth="80" MaxHeight="80" Margin="5,0">
+                                    <StackPanel>
+                                        <Image Source="{Binding Icon, Converter={StaticResource BitmapToBitmapImageConverter}}" Height="25" Width="25"></Image>
+                                        <TextBlock FontSize="10" FontWeight="Medium" TextAlignment="Center" Text="{Binding FileName}" TextWrapping="Wrap" TextTrimming="WordEllipsis"></TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Border Grid.Column="2" Margin="0,10" BorderThickness="1,0,0,0" BorderBrush="{StaticResource AccentColorBrush}">
+                        <Grid Margin="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Margin="0,0,0,2" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Command="{Binding SkydiverViewModel.OpenFolderCommand}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}">
+                                    <iconPacks:PackIconModern Margin="5" Kind="Folder" />
+                            </Button>
+                            <Button Grid.Row="1" Margin="0,2,0,0" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Command="{Binding SkydiverViewModel.EditCommand}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}">
+                                <iconPacks:PackIconModern Margin="5" Kind="PeopleProfile" />
+                            </Button>
                         </Grid>
-                    </ScrollViewer>
+                    </Border>
                 </Grid>
             </Border>
 

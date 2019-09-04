@@ -1,11 +1,14 @@
-﻿using FreeflyAcademy.Enums;
+﻿using FreeflyAcademy.Dtos;
+using FreeflyAcademy.Enums;
+using FreeflyAcademy.Services.Contracts;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
+using Ninject;
 
 namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
-    internal class HeadUpProgressSheetViewModel : BaseViewModel, IHeadUpProgressSheetViewModel
+    internal class HeadUpProgressSheetViewModel : ProgressSheetModuleViewModel<HeadUpProgressSheetDto>, IHeadUpProgressSheetViewModel
     {
         private AcquisitionLevel _securityAltitude;
         private AcquisitionLevel _securityReactivity;
@@ -20,6 +23,10 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private AcquisitionLevel _breakSignal;
         private AcquisitionLevel _breakTrack;
         private AcquisitionLevel _breakEfficiency;
+
+        public HeadUpProgressSheetViewModel(IKernel kernel, IProgressSheetService progressSheetService) : base(kernel, progressSheetService)
+        {
+        }
 
         public AcquisitionLevel SecurityAltitude
         {
@@ -138,6 +145,63 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 _breakEfficiency = value;
                 OnPropertyChanged(nameof(BreakEfficiency));
             }
+        }
+        
+        public override void Initialize(string firstName, string lastName, ProgressSheetDto progressSheet)
+        {
+            PropertyChanged -= ProgressSheetViewModelOnPropertyChanged;
+
+            FirstName = firstName;
+            LastName = lastName;
+
+            SecurityAltitude = progressSheet.HeadUpProgressSheet.SecurityAltitude;
+            SecurityReactivity = progressSheet.HeadUpProgressSheet.SecurityReactivity;
+            SecurityEase = progressSheet.HeadUpProgressSheet.SecurityEase;
+            SecurityHeading = progressSheet.HeadUpProgressSheet.SecurityHeading;
+            Spin = progressSheet.HeadUpProgressSheet.Spin;
+            Barrel = progressSheet.HeadUpProgressSheet.Barrel;
+            Loop = progressSheet.HeadUpProgressSheet.Loop;
+            Level = progressSheet.HeadUpProgressSheet.Level;
+            Inertia = progressSheet.HeadUpProgressSheet.Inertia;
+            BreakAltitude = progressSheet.HeadUpProgressSheet.BreakAltitude;
+            BreakSignal = progressSheet.HeadUpProgressSheet.BreakSignal;
+            BreakTrack = progressSheet.HeadUpProgressSheet.BreakTrack;
+            BreakEfficiency = progressSheet.HeadUpProgressSheet.BreakEfficiency;
+
+            Validated = progressSheet.HeadUpProgressSheet.Validated;
+            ValidationDate = progressSheet.HeadUpProgressSheet.ValidationDate;
+            Coach = progressSheet.HeadUpProgressSheet.Coach;
+
+            PropertyChanged += ProgressSheetViewModelOnPropertyChanged;
+        }
+
+        public override HeadUpProgressSheetDto GetProgressSheetDto()
+        {
+            return new HeadUpProgressSheetDto
+            {
+                SecurityAltitude = SecurityAltitude,
+                SecurityReactivity = SecurityReactivity,
+                SecurityEase = SecurityEase,
+                SecurityHeading = SecurityHeading,
+                Spin = Spin,
+                Loop = Loop,
+                Barrel = Barrel,
+                Level = Level,
+                Inertia = Inertia,
+                BreakAltitude = BreakAltitude,
+                BreakSignal = BreakSignal,
+                BreakTrack = BreakTrack,
+                BreakEfficiency = BreakEfficiency,
+
+                Validated = Validated,
+                Coach = Coach,
+                ValidationDate = ValidationDate
+            };
+        }
+
+        protected override void Save()
+        {
+            _progressSheetService.Save(FirstName, LastName, GetProgressSheetDto());
         }
     }
 }

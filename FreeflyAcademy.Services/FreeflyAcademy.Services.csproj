@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoachService.cs" />
+    <Compile Include="FileCopierService.cs" />
     <Compile Include="FreeflyAcademy.Services.Module.cs" />
     <Compile Include="ProgressSheetService.cs" />
     <Compile Include="SkydiverService.cs" />

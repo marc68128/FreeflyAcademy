@@ -3,7 +3,7 @@ using FreeflyAcademy.ViewModels.Contracts.Base;
 
 namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
 {
-    public interface IHeadDownProgressSheetViewModel : IBaseViewModel
+    public interface IHeadDownProgressSheetViewModel : IModuleProgressSheetViewModel
     {
         AcquisitionLevel SecurityAltitude { get; set; }
         AcquisitionLevel SecurityReactivity { get; set; }

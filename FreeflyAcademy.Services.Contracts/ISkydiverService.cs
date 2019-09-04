@@ -9,5 +9,6 @@ namespace FreeflyAcademy.Services.Contracts
         List<SkydiverDto> GetAll();
         SkydiverDto Get(string firstName, string lastName);
         void Add(SkydiverDto skydiver);
+        void Edit(SkydiverDto skydiver);
     }
 }

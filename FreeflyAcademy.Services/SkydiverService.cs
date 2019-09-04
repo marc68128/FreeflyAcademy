@@ -61,5 +61,19 @@ namespace FreeflyAcademy.Services
                 VideoDirectoryPath = skydiver.VideoDirectoryPath
             });
         }
+
+        public void Edit(SkydiverDto skydiver)
+        {
+            _skydiverRepository.Edit(new Skydiver
+            {
+                FirstName = skydiver.FirstName,
+                LastName = skydiver.LastName,
+                JumpsCount = skydiver.JumpsCount,
+                PersonalRig = skydiver.PersonalRig,
+                FreeflyStartingDate = skydiver.FreeflyStartingDate,
+                SkydiveStartingDate = skydiver.SkydiveStartingDate,
+                VideoDirectoryPath = skydiver.VideoDirectoryPath
+            });
+        }
     }
 }

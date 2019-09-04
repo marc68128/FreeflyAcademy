@@ -10,6 +10,7 @@ namespace FreeflyAcademy.Services
             Bind<ISkydiverService>().To<SkydiverService>().InSingletonScope();
             Bind<IProgressSheetService>().To<ProgressSheetService>().InSingletonScope();
             Bind<ICoachService>().To<CoachService>().InSingletonScope();
+            Bind<IFileCopierService>().To<FileCopierService>().InSingletonScope();
         }
     }
 }

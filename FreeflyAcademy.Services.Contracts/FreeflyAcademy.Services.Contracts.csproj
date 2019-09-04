@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICoachService.cs" />
+    <Compile Include="IFileCopierService.cs" />
     <Compile Include="IProgressSheetService.cs" />
     <Compile Include="ISkydiverService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

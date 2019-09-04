@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,12 +48,15 @@
     <Compile Include="Base\IBaseViewModel.cs" />
     <Compile Include="Base\IModalInfoViewModel.cs" />
     <Compile Include="Base\IModalViewModel.cs" />
-    <Compile Include="CreateSkydiver\ICreateSkydiverViewModel.cs" />
+    <Compile Include="EditSkydiver\IEditSkydiverModalViewModel.cs" />
+    <Compile Include="CreateSkydiver\ICreateSkydiverModalViewModel.cs" />
     <Compile Include="Base\IDragDropTarget.cs" />
     <Compile Include="ProgressSheet\ICoachTileViewModel.cs" />
+    <Compile Include="ProgressSheet\IFileViewModel.cs" />
     <Compile Include="ProgressSheet\IHeadDownProgressSheetViewModel.cs" />
     <Compile Include="ProgressSheet\IHeadUpProgressSheetViewModel.cs" />
     <Compile Include="IMainViewModel.cs" />
+    <Compile Include="ProgressSheet\IModuleProgressSheetViewModel.cs" />
     <Compile Include="ProgressSheet\IProgressSheetViewModel.cs" />
     <Compile Include="ProgressSheet\ISelectCoachModalViewModel.cs" />
     <Compile Include="ProgressSheet\IValidateCoachModalViewModel.cs" />

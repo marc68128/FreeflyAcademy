@@ -2,6 +2,7 @@
 using FreeflyAcademy.Repositories.Contracts;
 using Newtonsoft.Json;
 using System.IO;
+using FreeflyAcademy.Repositories.Helpers;
 
 namespace FreeflyAcademy.Repositories
 {
@@ -13,7 +14,7 @@ namespace FreeflyAcademy.Repositories
 
             if (File.Exists(filePath))
             {
-                return JsonConvert.DeserializeObject<ProgressSheet>(File.ReadAllText(filePath));
+                return JsonConvert.DeserializeObject<ProgressSheet>(EncryptionHelper.Decrypt(File.ReadAllText(filePath)));
             }
 
             return new ProgressSheet();
@@ -23,7 +24,7 @@ namespace FreeflyAcademy.Repositories
         {
             var filePath = Path.Combine(_repositoryFolderPath, $"{lastName}.{firstName}.progressSheet");
 
-            File.WriteAllText(filePath, JsonConvert.SerializeObject(progressSheet));
+            File.WriteAllText(filePath, EncryptionHelper.Encrypt(JsonConvert.SerializeObject(progressSheet)));
         }
     }
 }

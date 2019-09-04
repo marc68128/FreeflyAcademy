@@ -12,5 +12,6 @@ namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
         IHeadDownProgressSheetViewModel HeadDownProgressSheetViewModel { get; set; }
 
         void Load(ISkydiverTileViewModel tiles);
+        void Load(string firstName, string lastName);
     }
 }

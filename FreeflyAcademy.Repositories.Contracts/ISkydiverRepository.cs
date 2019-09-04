@@ -8,5 +8,6 @@ namespace FreeflyAcademy.Repositories.Contracts
         List<Skydiver> GetAll();
         void Add(Skydiver skydiver);
         Skydiver Get(string firstName, string lastName);
+        void Edit(Skydiver skydiver);
     }
 }

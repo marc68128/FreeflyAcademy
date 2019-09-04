@@ -1,9 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:progressSheet="clr-namespace:FreeflyAcademy.ViewModels.Contracts.ProgressSheet;assembly=FreeflyAcademy.ViewModels.Contracts"
-                    xmlns:userControls="clr-namespace:FreeflyAcademy.Views.UserControls">
+                    xmlns:userControls="clr-namespace:FreeflyAcademy.Views.UserControls"
+                    xmlns:converters="clr-namespace:FreeflyAcademy.Views.Converters"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
     <DataTemplate DataType="{x:Type progressSheet:IHeadDownProgressSheetViewModel}">
+        <DataTemplate.Resources>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></converters:BoolToVisibilityConverter>
+            <converters:DateTimeToStringConverter x:Key="DateTimeToStringConverter"></converters:DateTimeToStringConverter>
+        </DataTemplate.Resources>
         <ScrollViewer VerticalScrollBarVisibility="Hidden">
             <StackPanel>
                 <Grid>
@@ -84,6 +90,24 @@
                 <userControls:ProgressSheetRow 
                                 ProgressSheetItem="{Binding BreakBarrelAndOpeningSignal, Mode=TwoWay}"
                                 Label="Demi tonneau face sol et signe d'ouverture"></userControls:ProgressSheetRow>
+
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource AccentColorBrush4}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" Margin="5" FontSize="15" TextAlignment="Center" Text="Module tête en bas" FontWeight="Bold"></TextBlock>
+                    <mah:ToggleSwitch Margin="5" Grid.Column="2" OffLabel="Non validé" OnLabel="Validé" x:Name="trackSwitch" IsChecked="{Binding Validated, Mode=TwoWay}"></mah:ToggleSwitch>
+                    <TextBlock Margin="5" VerticalAlignment="Center" Grid.Column="4" FontSize="15" Visibility="{Binding ElementName=trackSwitch, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Run Text="Le" FontFamily="{DynamicResource CaviarDreams}"></Run>
+                        <Run Text="{Binding ValidationDate, Mode=TwoWay, Converter={StaticResource DateTimeToStringConverter}}"></Run>
+                        <Run Text="par" FontFamily="{DynamicResource CaviarDreams}"></Run>
+                        <Run Text="{Binding Coach, Mode=TwoWay}"></Run>
+                    </TextBlock>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
     </DataTemplate>

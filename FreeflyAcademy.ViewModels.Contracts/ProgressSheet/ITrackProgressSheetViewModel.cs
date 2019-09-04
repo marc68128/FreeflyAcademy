@@ -1,9 +1,10 @@
-﻿using FreeflyAcademy.Enums;
+﻿using System;
+using FreeflyAcademy.Enums;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 
 namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
 {
-    public interface ITrackProgressSheetViewModel : IBaseViewModel
+    public interface ITrackProgressSheetViewModel : IModuleProgressSheetViewModel
     {
         AcquisitionLevel SecurityAltitude { get; set; }
         AcquisitionLevel SecurityHeading { get; set; }
@@ -19,5 +20,10 @@ namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
         AcquisitionLevel BreakHeading { get; set; }
         AcquisitionLevel BreakEfficiency { get; set; }
         AcquisitionLevel BreakBarrelAndOpeningSignal { get; set; }
+
+
+        bool Validated { get; set; }
+        DateTime? ValidationDate { get; set; }
+        string Coach { get; set; }
     }
 }

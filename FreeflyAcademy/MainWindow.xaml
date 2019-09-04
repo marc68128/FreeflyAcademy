@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         FontFamily="{StaticResource LemonMilk}"
         Title="Strasbourg Freefly Academy" Height="700" Width="1000">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Command="{Binding NavigateToHomeCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterialLight Width="20" Height="20" Kind="Home" />
+                </StackPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
 
     <Grid>
         <ContentControl Content="{Binding ViewModel}" ContentTemplateSelector="{StaticResource InterfaceTemplateSelector}" />

@@ -1,12 +1,26 @@
-﻿using System;
+﻿using FreeflyAcademy.Services.Contracts;
 using FreeflyAcademy.ViewModels.Base;
-using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Windows.Input;
+using FreeflyAcademy.ViewModels.Contracts.Base;
+using FreeflyAcademy.ViewModels.Contracts.EditSkydiver;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
+using Ninject;
 
 namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
     internal class SkydiverViewModel : BaseViewModel, ISkydiverViewModel
     {
+        private readonly IKernel _kernel;
+        private readonly ISkydiverService _skydiverService;
+        private readonly IFileCopierService _fileCopierService;
+
         private string _firstName;
         private string _lastName;
         private string _videoDirectoryPath;
@@ -14,6 +28,17 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private int _jumpsCount;
         private DateTime? _skydiveStartingDate;
         private DateTime? _freeflyStartingDate;
+
+        public SkydiverViewModel(IKernel kernel, ISkydiverService skydiverService, IFileCopierService fileCopierService)
+        {
+            _kernel = kernel;
+            _skydiverService = skydiverService;
+            _fileCopierService = fileCopierService;
+
+            Files = new ObservableCollection<IFileViewModel>(); 
+
+            InitCommands();
+        }
 
         public string FirstName
         {
@@ -77,6 +102,86 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 _freeflyStartingDate = value;
                 OnPropertyChanged(nameof(FreeflyStartingDate));
             }
+        }
+
+        public ObservableCollection<IFileViewModel> Files { get; private set; }
+
+        public ICommand OpenFolderCommand { get;  private set; }
+        public ICommand EditCommand { get; private set; }
+
+        public ISkydiverViewModel Initialize(string firstName, string lastName)
+        {
+            var skydiverDto = _skydiverService.Get(firstName, lastName);
+
+            FirstName = skydiverDto.FirstName;
+            LastName = skydiverDto.LastName;
+            VideoDirectoryPath = skydiverDto.VideoDirectoryPath;
+            FreeflyStartingDate = skydiverDto.FreeflyStartingDate;
+            JumpsCount = skydiverDto.JumpsCount;
+            SkydiveStartingDate = skydiverDto.SkydiveStartingDate;
+            PersonalRig = skydiverDto.PersonalRig;
+
+            if (!string.IsNullOrWhiteSpace(VideoDirectoryPath))
+            {
+                Files.Clear();
+
+                if (Directory.Exists(VideoDirectoryPath))
+                {
+                    Directory.GetFiles(VideoDirectoryPath)
+                        .OrderByDescending(File.GetCreationTime)
+                        .Select(path => _kernel.Get<IFileViewModel>().Initialize(path)).ToList()
+                        .ForEach(fileViewModel => Files.Add(fileViewModel));
+                }
+            }
+
+            return this;
+        }
+
+        public void AddFiles(string[] filePaths)
+        {
+            if (string.IsNullOrWhiteSpace(VideoDirectoryPath))
+            {
+                var infoModal = _kernel.Get<IModalInfoViewModel>();
+                infoModal.Title = "Attention  !";
+                infoModal.Content = $"Le dossier vidéo de {FirstName} {LastName} n'a pas été configuré.\n" +
+                                    $"Vous ne pouvez pas ajouter de vidéos.";
+                Messenger.Default.Send<IModalViewModel>(infoModal);
+                return;
+            }
+
+            if (!Directory.Exists(VideoDirectoryPath))
+            {
+                var infoModal = _kernel.Get<IModalInfoViewModel>();
+                infoModal.Title = "Attention  !";
+                infoModal.Content = $"Le dossier \"{VideoDirectoryPath}\" configuré pour {FirstName} {LastName} n'éxiste pas.\n" +
+                                    $"Veuillez le corriger afin de pouvoir ajouter des vidéos.";
+                Messenger.Default.Send<IModalViewModel>(infoModal);
+                return;
+            }
+
+            var selectCoachModal = _kernel.Get<ISelectCoachModalViewModel>();
+            selectCoachModal.CoachSelected += async (sender, model) =>
+            {
+                foreach (var filepath in filePaths)
+                {
+                    var newFilePath = Path.Combine(VideoDirectoryPath, $"{model.FirstName} {model.LastName}{Path.GetExtension(filepath)}");
+                    int incr = 1; 
+                    while (File.Exists(newFilePath))
+                    {
+                        newFilePath = Path.Combine(VideoDirectoryPath, $"{model.FirstName} {model.LastName} ({incr++}){Path.GetExtension(filepath)}");
+                    }
+                    await _fileCopierService.Copy(filepath, newFilePath);
+
+                    this.Initialize(FirstName, LastName);
+                }
+            };
+            Messenger.Default.Send<IModalViewModel>(selectCoachModal);
+        }
+
+        private void InitCommands()
+        {
+            OpenFolderCommand = new RelayCommand(() => Process.Start("explorer", VideoDirectoryPath), () => Directory.Exists(VideoDirectoryPath));
+            EditCommand = new RelayCommand(() => Messenger.Default.Send<IModalViewModel>(_kernel.Get<IEditSkydiverModalViewModel>().Initialize(FirstName, LastName)));
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Windows.Input;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 using FreeflyAcademy.ViewModels.Contracts.SkydiverList;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Ninject;
 
@@ -23,7 +25,9 @@ namespace FreeflyAcademy.ViewModels
 
             _kernel = kernel;
             SetupViewModel(_kernel.Get<ISkydiverListViewModel>());
+            InitCommands();
         }
+
 
         private void SetupViewModel(IBaseViewModel viewModel)
         {
@@ -56,6 +60,8 @@ namespace FreeflyAcademy.ViewModels
             }
         }
 
+        public ICommand NavigateToHomeCommand { get; private set; }
+
         public bool ShowModal
         {
             get => _showModal;
@@ -65,5 +71,11 @@ namespace FreeflyAcademy.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private void InitCommands()
+        {
+            NavigateToHomeCommand = new RelayCommand(() => ViewModel = _kernel.Get<ISkydiverListViewModel>());
+        }
+
     }
 }

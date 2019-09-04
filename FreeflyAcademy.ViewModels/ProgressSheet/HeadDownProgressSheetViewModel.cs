@@ -1,11 +1,12 @@
-﻿using FreeflyAcademy.Enums;
-using FreeflyAcademy.ViewModels.Base;
-using FreeflyAcademy.ViewModels.Contracts;
+﻿using FreeflyAcademy.Dtos;
+using FreeflyAcademy.Enums;
+using FreeflyAcademy.Services.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
+using Ninject;
 
 namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
-    internal class HeadDownProgressSheetViewModel : BaseViewModel, IHeadDownProgressSheetViewModel
+    internal class HeadDownProgressSheetViewModel : ProgressSheetModuleViewModel<HeadDownProgressSheetDto>, IHeadDownProgressSheetViewModel
     {
         private AcquisitionLevel _securityAltitude;
         private AcquisitionLevel _securityReactivity;
@@ -20,6 +21,10 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private AcquisitionLevel _breakSignal;
         private AcquisitionLevel _break180Track;
         private AcquisitionLevel _breakBarrelAndOpeningSignal;
+
+        public HeadDownProgressSheetViewModel(IKernel kernel, IProgressSheetService progressSheetService) : base(kernel, progressSheetService)
+        {
+        }
 
         public AcquisitionLevel SecurityAltitude
         {
@@ -137,6 +142,64 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 _breakBarrelAndOpeningSignal = value;
                 OnPropertyChanged(nameof(BreakBarrelAndOpeningSignal));
             }
+        }
+
+
+        public override void Initialize(string firstName, string lastName, ProgressSheetDto progressSheet)
+        {
+            PropertyChanged -= ProgressSheetViewModelOnPropertyChanged;
+
+            FirstName = firstName;
+            LastName = lastName;
+
+            SecurityAltitude = progressSheet.HeadDownProgressSheet.SecurityAltitude;
+            SecurityReactivity = progressSheet.HeadDownProgressSheet.SecurityReactivity;
+            SecurityEase = progressSheet.HeadDownProgressSheet.SecurityEase;
+            SecurityHeading = progressSheet.HeadDownProgressSheet.SecurityHeading;
+            Spin = progressSheet.HeadDownProgressSheet.Spin;
+            Loop = progressSheet.HeadDownProgressSheet.Loop;
+            Barrel = progressSheet.HeadDownProgressSheet.Barrel;
+            Transition = progressSheet.HeadDownProgressSheet.Transition;
+            Inertia = progressSheet.HeadDownProgressSheet.Inertia;
+            Level = progressSheet.HeadDownProgressSheet.Level;
+            BreakSignal = progressSheet.HeadDownProgressSheet.BreakSignal;
+            Break180Track = progressSheet.HeadDownProgressSheet.Break180Track;
+            BreakBarrelAndOpeningSignal = progressSheet.HeadDownProgressSheet.BreakBarrelAndOpeningSignal;
+
+            Validated = progressSheet.HeadDownProgressSheet.Validated;
+            ValidationDate = progressSheet.HeadDownProgressSheet.ValidationDate;
+            Coach = progressSheet.HeadDownProgressSheet.Coach;
+
+            PropertyChanged += ProgressSheetViewModelOnPropertyChanged;
+        }
+
+        public override HeadDownProgressSheetDto GetProgressSheetDto()
+        {
+            return new HeadDownProgressSheetDto
+            {
+                SecurityAltitude = SecurityAltitude,
+                SecurityReactivity = SecurityReactivity,
+                SecurityEase = SecurityEase,
+                SecurityHeading = SecurityHeading,
+                Spin = Spin,
+                Loop = Loop,
+                Barrel = Barrel,
+                Transition = Transition,
+                Level = Level,
+                Inertia = Inertia,
+                BreakSignal = BreakSignal,
+                Break180Track = Break180Track,
+                BreakBarrelAndOpeningSignal = BreakBarrelAndOpeningSignal,
+
+                Validated = Validated,
+                Coach = Coach,
+                ValidationDate = ValidationDate
+            };
+        }
+
+        protected override void Save()
+        {
+            _progressSheetService.Save(FirstName, LastName, GetProgressSheetDto());
         }
     }
 }

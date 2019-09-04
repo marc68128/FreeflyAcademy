@@ -39,5 +39,15 @@ namespace FreeflyAcademy.Repositories
 
             return JsonConvert.DeserializeObject<Skydiver>(File.ReadAllText(filePath));
         }
+
+        public void Edit(Skydiver skydiver)
+        {
+            var filePath = Path.Combine(_repositoryFolderPath, $"{skydiver.LastName}.{skydiver.FirstName}.skydiver");
+
+            if (!File.Exists(filePath))
+                throw new FreeflyAcademyException($"{skydiver.LastName} {skydiver.FirstName} n'éxiste pas.");
+
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(skydiver));
+        }
     }
 }

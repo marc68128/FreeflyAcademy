@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using AutoMapper;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.Base;
@@ -12,18 +13,16 @@ namespace FreeflyAcademy.ViewModels
 {
     internal class MainViewModel : BaseViewModel, IMainViewModel
     {
-        private readonly IKernel _kernel;
         private IBaseViewModel _viewModel;
         private IModalViewModel _modalViewModel;
         private bool _showModal;
 
 
-        public MainViewModel(IKernel kernel)
+        public MainViewModel(IKernel kernel, IMapper mapper) : base(kernel, mapper)
         {
             Messenger.Default.Register(this, new Action<IBaseViewModel>(SetupViewModel));
             Messenger.Default.Register(this, new Action<IModalViewModel>(SetupModalViewModel));
-
-            _kernel = kernel;
+            
             SetupViewModel(_kernel.Get<ISkydiverListViewModel>());
             InitCommands();
         }

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -131,6 +134,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FreeflyAcademy.Domain\FreeflyAcademy.Domain.csproj">
+      <Project>{2ec4c898-0149-4822-b414-a751265bfb6a}</Project>
+      <Name>FreeflyAcademy.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FreeflyAcademy.Repositories\FreeflyAcademy.Repositories.csproj">
       <Project>{4ED13CE9-5B0A-4395-8A43-6C5C4F5AC985}</Project>
       <Name>FreeflyAcademy.Repositories</Name>

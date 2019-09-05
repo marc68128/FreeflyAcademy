@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FreeflyAcademy.ViewModels.Contracts.Base
+﻿namespace FreeflyAcademy.ViewModels.Contracts.Base
 {
     public interface IModalViewModel : IBaseViewModel
     {

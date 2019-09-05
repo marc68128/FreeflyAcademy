@@ -1,8 +1,7 @@
-﻿using FreeflyAcademy.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FreeflyAcademy.Dtos;
 
-namespace FreeflyAcademy.Services.Contracts
+namespace FreeflyAcademy.Services.Contracts.Business
 {
     public interface ISkydiverService
     {

@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using FreeflyAcademy.Services.Contracts;
-using FreeflyAcademy.ViewModels.Contracts;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using FreeflyAcademy.Dtos;
+using AutoMapper;
+using FreeflyAcademy.Services.Contracts.Business;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 using FreeflyAcademy.ViewModels.Contracts.CreateSkydiver;
@@ -14,17 +13,17 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Ninject;
 
-namespace FreeflyAcademy.ViewModels
+namespace FreeflyAcademy.ViewModels.SkydiverList
 {
     internal class SkydiverListViewModel : BaseViewModel, ISkydiverListViewModel
     {
-        private readonly IKernel _kernel;
         private readonly ISkydiverService _skydiversService;
         private List<ISkydiverTileViewModel> _skydivers; 
 
-        public SkydiverListViewModel(IKernel _kernel, ISkydiverService skydiversService)
+        private string _searchText;
+
+        public SkydiverListViewModel(IKernel kernel, IMapper mapper, ISkydiverService skydiversService) : base(kernel, mapper)
         {
-            this._kernel = _kernel;
             _skydiversService = skydiversService;
 
             InitSkydivers();
@@ -33,7 +32,6 @@ namespace FreeflyAcademy.ViewModels
             this.PropertyChanged += OnPropertyChanged;
         }
 
-        private string _searchText;
         
         public ObservableCollection<ISkydiverTileViewModel> FilteredSkydiverTiles { get; set; }
         public ICommand AddSkydiverCommand { get; private set; }
@@ -49,14 +47,7 @@ namespace FreeflyAcademy.ViewModels
         
         private void InitSkydivers()
         {
-            _skydivers = _skydiversService.GetAll().Select(dto =>
-            {
-                var viewModel = _kernel.Get<ISkydiverTileViewModel>();
-                viewModel.FirstName = dto.FirstName;
-                viewModel.LastName = dto.LastName;
-                return viewModel;
-            }).ToList(); 
-
+            _skydivers = _skydiversService.GetAll().Select(dto => _mapper.Map(dto, _kernel.Get<ISkydiverTileViewModel>())).ToList(); 
             FilteredSkydiverTiles = new ObservableCollection<ISkydiverTileViewModel>(_skydivers);
         }
 

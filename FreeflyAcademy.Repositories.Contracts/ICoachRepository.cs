@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FreeflyAcademy.Domain;
+﻿using System.Collections.Generic;
+using FreeflyAcademy.Domain.Model;
 
 namespace FreeflyAcademy.Repositories.Contracts
 {

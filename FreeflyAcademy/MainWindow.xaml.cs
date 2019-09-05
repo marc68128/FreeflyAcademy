@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using FreeflyAcademy.ViewModels.Contracts;
+﻿using FreeflyAcademy.ViewModels.Contracts;
 using MahApps.Metro.Controls;
 
 namespace FreeflyAcademy

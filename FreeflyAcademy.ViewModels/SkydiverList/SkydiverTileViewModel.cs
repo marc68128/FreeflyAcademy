@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
-using FreeflyAcademy.Services.Contracts;
+using AutoMapper;
 using FreeflyAcademy.ViewModels.Base;
-using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
 using FreeflyAcademy.ViewModels.Contracts.SkydiverList;
@@ -13,11 +12,8 @@ namespace FreeflyAcademy.ViewModels.SkydiverList
 {
     internal class SkydiverTileViewModel : BaseViewModel, ISkydiverTileViewModel
     {
-        private readonly IKernel _kernel;
-
-        public SkydiverTileViewModel(IKernel kernel)
+        public SkydiverTileViewModel(IKernel kernel, IMapper mapper) : base(kernel, mapper)
         {
-            _kernel = kernel;
             InitCommands();
         }
 

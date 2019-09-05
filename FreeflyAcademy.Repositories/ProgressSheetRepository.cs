@@ -1,7 +1,7 @@
-﻿using FreeflyAcademy.Domain;
-using FreeflyAcademy.Repositories.Contracts;
+﻿using FreeflyAcademy.Repositories.Contracts;
 using Newtonsoft.Json;
 using System.IO;
+using FreeflyAcademy.Domain.Model;
 using FreeflyAcademy.Repositories.Helpers;
 
 namespace FreeflyAcademy.Repositories

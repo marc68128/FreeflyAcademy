@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,22 +44,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coach.cs" />
+    <Compile Include="Configuration\FreeflyAcademy.Domain.Module.cs" />
+    <Compile Include="Model\Coach.cs" />
     <Compile Include="Exception\FreeflyAcademyException.cs" />
-    <Compile Include="HeadDownProgressSheet.cs" />
-    <Compile Include="HeadUpProgressSheet.cs" />
-    <Compile Include="ModuleProgressSheet.cs" />
-    <Compile Include="Person.cs" />
-    <Compile Include="Skydiver.cs" />
+    <Compile Include="Model\HeadDownProgressSheet.cs" />
+    <Compile Include="Model\HeadUpProgressSheet.cs" />
+    <Compile Include="Model\ModuleProgressSheet.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Skydiver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProgressSheet.cs" />
-    <Compile Include="TrackProgressSheet.cs" />
+    <Compile Include="Model\ProgressSheet.cs" />
+    <Compile Include="Model\TrackProgressSheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FreeflyAcademy.Enums\FreeflyAcademy.Enums.csproj">
       <Project>{341D878A-7704-4E3E-8008-37B1C01E0C95}</Project>
       <Name>FreeflyAcademy.Enums</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\ProgressSheet\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

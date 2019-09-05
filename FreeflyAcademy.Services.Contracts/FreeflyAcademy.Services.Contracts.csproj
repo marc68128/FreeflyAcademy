@@ -41,11 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICoachService.cs" />
-    <Compile Include="IFileCopierService.cs" />
-    <Compile Include="IProgressSheetService.cs" />
-    <Compile Include="ISkydiverService.cs" />
+    <Compile Include="Business\ICoachService.cs" />
+    <Compile Include="Technical\IFileCopierService.cs" />
+    <Compile Include="Business\IProgressSheetService.cs" />
+    <Compile Include="Business\ISkydiverService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Technical\IHashService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FreeflyAcademy.Domain\FreeflyAcademy.Domain.csproj">

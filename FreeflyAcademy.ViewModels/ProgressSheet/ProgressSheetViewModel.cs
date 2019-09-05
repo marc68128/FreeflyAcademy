@@ -1,4 +1,5 @@
-﻿using FreeflyAcademy.Services.Contracts;
+﻿using AutoMapper;
+using FreeflyAcademy.Services.Contracts.Business;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
 using FreeflyAcademy.ViewModels.Contracts.SkydiverList;
@@ -8,12 +9,10 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
     internal class ProgressSheetViewModel : BaseViewModel, IProgressSheetViewModel
     {
-        private readonly IKernel _kernel;
         private readonly IProgressSheetService _progressSheetService;
 
-        public ProgressSheetViewModel(IKernel kernel, IProgressSheetService progressSheetService)
+        public ProgressSheetViewModel(IKernel kernel, IMapper mapper, IProgressSheetService progressSheetService) : base(kernel, mapper)
         {
-            _kernel = kernel;
             _progressSheetService = progressSheetService;
 
             TrackProgressSheetViewModel = _kernel.Get<ITrackProgressSheetViewModel>();

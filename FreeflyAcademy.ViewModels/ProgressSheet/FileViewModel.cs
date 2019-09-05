@@ -27,7 +27,6 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
             InitIcon();
             return this;
         }
-
         private void InitIcon()
         {
             using (Icon sysicon = System.Drawing.Icon.ExtractAssociatedIcon(Path))
@@ -35,7 +34,6 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 Icon = sysicon.ToBitmap();
             }
         }
-
         private void InitCommands()
         {
             OpenCommand = new RelayCommand(() =>

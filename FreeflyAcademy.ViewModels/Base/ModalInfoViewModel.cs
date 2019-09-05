@@ -2,12 +2,14 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
+using AutoMapper;
+using Ninject;
 
 namespace FreeflyAcademy.ViewModels.Base
 {
     internal class ModalInfoViewModel : BaseViewModel, IModalInfoViewModel
     {
-        public ModalInfoViewModel()
+        public ModalInfoViewModel(IKernel kernel, IMapper mapper) : base(kernel, mapper)
         {
             InitCommands();
         }

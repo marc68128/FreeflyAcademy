@@ -1,25 +1,24 @@
-﻿using System;
-using System.Windows.Input;
+﻿using AutoMapper;
 using FreeflyAcademy.Dtos;
-using FreeflyAcademy.Services.Contracts;
+using FreeflyAcademy.Services.Contracts.Business;
 using FreeflyAcademy.ViewModels.Base;
-using FreeflyAcademy.ViewModels.Contracts;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 using FreeflyAcademy.ViewModels.Contracts.CreateSkydiver;
+using FreeflyAcademy.ViewModels.SkydiverList;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using Ninject;
+using System;
+using System.Windows.Input;
 
 namespace FreeflyAcademy.ViewModels.CreateSkydiver
 {
     internal class CreateSkydiverModalModalViewModel : BaseViewModel, ICreateSkydiverModalViewModel
     {
-        private readonly IKernel _kernel;
         private readonly ISkydiverService _skydiverService;
 
-        public CreateSkydiverModalModalViewModel(IKernel kernel, ISkydiverService skydiverService)
+        public CreateSkydiverModalModalViewModel(IKernel kernel, IMapper mapper, ISkydiverService skydiverService) : base(kernel, mapper)
         {
-            _kernel = kernel;
             _skydiverService = skydiverService;
             InitCommands();
         }
@@ -95,7 +94,7 @@ namespace FreeflyAcademy.ViewModels.CreateSkydiver
                 OnPropertyChanged(nameof(FreeflyStartingDate));
             }
         }
-        
+
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
 
@@ -107,8 +106,8 @@ namespace FreeflyAcademy.ViewModels.CreateSkydiver
                 {
                     FirstName = FirstName,
                     LastName = LastName,
-                    VideoDirectoryPath = VideoDirectoryPath, 
-                    PersonalRig = PersonalRig, 
+                    VideoDirectoryPath = VideoDirectoryPath,
+                    PersonalRig = PersonalRig,
                     JumpsCount = JumpsCount,
                     SkydiveStartingDate = SkydiveStartingDate,
                     FreeflyStartingDate = FreeflyStartingDate

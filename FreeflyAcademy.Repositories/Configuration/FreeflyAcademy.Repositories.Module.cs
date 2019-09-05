@@ -1,7 +1,7 @@
 ﻿using FreeflyAcademy.Repositories.Contracts;
 using Ninject.Modules;
 
-namespace FreeflyAcademy.Repositories
+namespace FreeflyAcademy.Repositories.Configuration
 {
     public class RepositoryModule : NinjectModule
     {

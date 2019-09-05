@@ -1,6 +1,6 @@
 ﻿using FreeflyAcademy.Enums;
 
-namespace FreeflyAcademy.Domain
+namespace FreeflyAcademy.Domain.Model
 {
     public class HeadDownProgressSheet : ModuleProgressSheet
     {

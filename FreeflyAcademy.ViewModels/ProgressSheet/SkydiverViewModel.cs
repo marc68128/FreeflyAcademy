@@ -1,5 +1,4 @@
-﻿using FreeflyAcademy.Services.Contracts;
-using FreeflyAcademy.ViewModels.Base;
+﻿using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
 using System;
 using System.Collections.ObjectModel;
@@ -7,6 +6,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using AutoMapper;
+using FreeflyAcademy.Services.Contracts.Business;
+using FreeflyAcademy.Services.Contracts.Technical;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 using FreeflyAcademy.ViewModels.Contracts.EditSkydiver;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -17,7 +19,6 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
     internal class SkydiverViewModel : BaseViewModel, ISkydiverViewModel
     {
-        private readonly IKernel _kernel;
         private readonly ISkydiverService _skydiverService;
         private readonly IFileCopierService _fileCopierService;
 
@@ -29,9 +30,8 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private DateTime? _skydiveStartingDate;
         private DateTime? _freeflyStartingDate;
 
-        public SkydiverViewModel(IKernel kernel, ISkydiverService skydiverService, IFileCopierService fileCopierService)
+        public SkydiverViewModel(IKernel kernel, IMapper mapper, ISkydiverService skydiverService, IFileCopierService fileCopierService) : base(kernel, mapper)
         {
-            _kernel = kernel;
             _skydiverService = skydiverService;
             _fileCopierService = fileCopierService;
 

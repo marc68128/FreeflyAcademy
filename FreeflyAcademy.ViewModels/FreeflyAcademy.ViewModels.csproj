@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -66,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseViewModel.cs" />
     <Compile Include="Base\ModalInfoViewModel.cs" />
+    <Compile Include="Configuration\ViewModelsMappingProfile.cs" />
     <Compile Include="CreateSkydiver\CreateSkydiverModalModalViewModel.cs" />
     <Compile Include="EditSkydiver\EditSkydiverModalViewModel.cs" />
     <Compile Include="ProgressSheet\CoachTileViewModel.cs" />
@@ -85,7 +89,7 @@
     <Compile Include="ProgressSheet\TrackProgressSheetViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FreeflyAcademy.ViewModels.Module.cs" />
+    <Compile Include="Configuration\FreeflyAcademy.ViewModels.Module.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

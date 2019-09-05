@@ -1,6 +1,5 @@
 ﻿using FreeflyAcademy.Dtos;
 using FreeflyAcademy.Enums;
-using FreeflyAcademy.Services.Contracts;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 using FreeflyAcademy.ViewModels.Contracts.ProgressSheet;
@@ -10,13 +9,14 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using AutoMapper;
+using FreeflyAcademy.Services.Contracts.Business;
 
 namespace FreeflyAcademy.ViewModels.ProgressSheet
 {
     internal abstract class ProgressSheetModuleViewModel<TProgressSheetModuleDto> : BaseViewModel, IModuleProgressSheetViewModel
         where TProgressSheetModuleDto : ProgressSheetModuleDto
     {
-        protected readonly IKernel _kernel;
         protected readonly IProgressSheetService _progressSheetService;
 
         protected string FirstName, LastName;
@@ -25,9 +25,8 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private DateTime? _validationDate;
         private string _coach;
 
-        protected ProgressSheetModuleViewModel(IKernel kernel, IProgressSheetService progressSheetService)
+        protected ProgressSheetModuleViewModel(IKernel kernel, IMapper mapper, IProgressSheetService progressSheetService) : base(kernel, mapper)
         {
-            _kernel = kernel;
             _progressSheetService = progressSheetService;
         }
 

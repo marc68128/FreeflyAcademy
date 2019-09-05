@@ -1,9 +1,9 @@
-﻿using FreeflyAcademy.Domain;
-using FreeflyAcademy.Domain.Exception;
+﻿using FreeflyAcademy.Domain.Exception;
 using FreeflyAcademy.Repositories.Contracts;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using FreeflyAcademy.Domain.Model;
 
 namespace FreeflyAcademy.Repositories
 {

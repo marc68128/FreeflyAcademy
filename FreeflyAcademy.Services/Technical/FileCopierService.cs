@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using FreeflyAcademy.Services.Contracts;
+using FreeflyAcademy.Services.Contracts.Technical;
 
-namespace FreeflyAcademy.Services
+namespace FreeflyAcademy.Services.Technical
 {
     internal class FileCopierService : IFileCopierService
     {
@@ -22,7 +19,7 @@ namespace FreeflyAcademy.Services
                     using (FileStream dest = new FileStream(destPath, FileMode.CreateNew, FileAccess.Write))
                     {
                         long totalBytes = 0;
-                        int currentBlockSize = 0;
+                        int currentBlockSize;
 
                         while ((currentBlockSize = source.Read(buffer, 0, buffer.Length)) > 0)
                         {
@@ -32,7 +29,6 @@ namespace FreeflyAcademy.Services
                             dest.Write(buffer, 0, currentBlockSize);
 
                             progress?.Report(persentage);
-                            
                         }
                     }
                 }

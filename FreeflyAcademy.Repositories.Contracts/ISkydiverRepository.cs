@@ -1,5 +1,5 @@
-﻿using FreeflyAcademy.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FreeflyAcademy.Domain.Model;
 
 namespace FreeflyAcademy.Repositories.Contracts
 {

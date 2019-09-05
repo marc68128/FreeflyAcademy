@@ -27,6 +27,7 @@
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/Partials/TrackProgressSheet.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/Partials/HeadUpProgressSheet.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/Partials/HeadDownProgressSheet.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Views/Partials/Skydiver.xaml"/>
 
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Modals/InfoModal.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/FreeflyAcademy.Views;component/Modals/SelectCoachModal.xaml"/>

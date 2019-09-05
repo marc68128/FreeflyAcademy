@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FreeflyAcademy.Domain
+namespace FreeflyAcademy.Domain.Model
 {
     public class Skydiver : Person
     {

@@ -1,6 +1,6 @@
 ﻿using FreeflyAcademy.Dtos;
 
-namespace FreeflyAcademy.Services.Contracts
+namespace FreeflyAcademy.Services.Contracts.Business
 {
     public interface IProgressSheetService
     {

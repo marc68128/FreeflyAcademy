@@ -11,7 +11,7 @@ using FreeflyAcademy.ViewModels.ProgressSheet;
 using FreeflyAcademy.ViewModels.SkydiverList;
 using Ninject.Modules;
 
-namespace FreeflyAcademy.ViewModels
+namespace FreeflyAcademy.ViewModels.Configuration
 {
     public class ViewModelModule : NinjectModule
     {

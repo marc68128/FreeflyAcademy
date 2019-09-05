@@ -1,5 +1,4 @@
 ﻿using FreeflyAcademy.Enums;
-using FreeflyAcademy.ViewModels.Contracts.Base;
 
 namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
 {

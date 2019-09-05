@@ -1,4 +1,4 @@
-﻿using FreeflyAcademy.Domain;
+﻿using FreeflyAcademy.Domain.Model;
 
 namespace FreeflyAcademy.Repositories.Contracts
 {

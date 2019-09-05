@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
+using AutoMapper;
 using FreeflyAcademy.Dtos;
-using FreeflyAcademy.Services.Contracts;
+using FreeflyAcademy.Services.Contracts.Business;
 using FreeflyAcademy.ViewModels.Base;
 using FreeflyAcademy.ViewModels.Contracts.Base;
 using FreeflyAcademy.ViewModels.Contracts.EditSkydiver;
@@ -14,12 +15,10 @@ namespace FreeflyAcademy.ViewModels.EditSkydiver
 {
     internal class EditSkydiverModalViewModel : BaseViewModel, IEditSkydiverModalViewModel
     {
-        private readonly IKernel _kernel;
         private readonly ISkydiverService _skydiverService;
 
-        public EditSkydiverModalViewModel(IKernel kernel, ISkydiverService skydiverService)
+        public EditSkydiverModalViewModel(IKernel kernel, IMapper mapper, ISkydiverService skydiverService) : base(kernel, mapper)
         {
-            _kernel = kernel;
             _skydiverService = skydiverService;
             InitCommands();
         }
@@ -101,15 +100,7 @@ namespace FreeflyAcademy.ViewModels.EditSkydiver
 
         public IEditSkydiverModalViewModel Initialize(string firstName, string lastName)
         {
-            var skydiverDto = _skydiverService.Get(firstName, lastName);
-            FirstName = skydiverDto.FirstName;
-            LastName = skydiverDto.LastName;
-            VideoDirectoryPath = skydiverDto.VideoDirectoryPath;
-            PersonalRig = skydiverDto.PersonalRig;
-            JumpsCount = skydiverDto.JumpsCount;
-            SkydiveStartingDate = skydiverDto.SkydiveStartingDate;
-            FreeflyStartingDate = skydiverDto.FreeflyStartingDate;
-
+            _mapper.Map(_skydiverService.Get(firstName, lastName), this);
             return this; 
         }
 
@@ -117,16 +108,7 @@ namespace FreeflyAcademy.ViewModels.EditSkydiver
         {
             SaveCommand = new RelayCommand(() =>
             {
-                _skydiverService.Edit(new SkydiverDto
-                {
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    VideoDirectoryPath = VideoDirectoryPath, 
-                    PersonalRig = PersonalRig, 
-                    JumpsCount = JumpsCount,
-                    SkydiveStartingDate = SkydiveStartingDate,
-                    FreeflyStartingDate = FreeflyStartingDate
-                });
+                _skydiverService.Edit(_mapper.Map<SkydiverDto>(this));
 
                 var progressSheetViewModel = _kernel.Get<IProgressSheetViewModel>(); 
                 progressSheetViewModel.Load(FirstName, LastName);

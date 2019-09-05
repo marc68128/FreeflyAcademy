@@ -47,11 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoachService.cs" />
-    <Compile Include="FileCopierService.cs" />
-    <Compile Include="FreeflyAcademy.Services.Module.cs" />
-    <Compile Include="ProgressSheetService.cs" />
-    <Compile Include="SkydiverService.cs" />
+    <Compile Include="Business\BaseBusinessService.cs" />
+    <Compile Include="Business\CoachService.cs" />
+    <Compile Include="Configuration\ServicesMappingProfile.cs" />
+    <Compile Include="Technical\HashService.cs" />
+    <Compile Include="Technical\FileCopierService.cs" />
+    <Compile Include="Configuration\FreeflyAcademy.Services.Module.cs" />
+    <Compile Include="Business\ProgressSheetService.cs" />
+    <Compile Include="Business\SkydiverService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

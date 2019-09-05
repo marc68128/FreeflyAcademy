@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
-using FreeflyAcademy.Domain;
+using FreeflyAcademy.Domain.Model;
 using FreeflyAcademy.Dtos;
 using FreeflyAcademy.Repositories.Contracts;
-using FreeflyAcademy.Services.Contracts;
+using FreeflyAcademy.Services.Contracts.Business;
 
-namespace FreeflyAcademy.Services
+namespace FreeflyAcademy.Services.Business
 {
-    internal class ProgressSheetService : IProgressSheetService
+    internal class ProgressSheetService : BaseBusinessService, IProgressSheetService
     {
         private readonly IProgressSheetRepository _progressSheetRepository;
 
-        public ProgressSheetService(IProgressSheetRepository progressSheetRepository)
+        public ProgressSheetService(IMapper mapper, IProgressSheetRepository progressSheetRepository) : base(mapper)
         {
             _progressSheetRepository = progressSheetRepository;
         }
@@ -18,31 +18,14 @@ namespace FreeflyAcademy.Services
         public ProgressSheetDto GetOrCreate(string firstName, string lastName)
         {
             var progressSheet = _progressSheetRepository.GetOrCreate(firstName, lastName);
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ProgressSheet, ProgressSheetDto>();
-                cfg.CreateMap<TrackProgressSheet, TrackProgressSheetDto>();
-                cfg.CreateMap<HeadUpProgressSheet, HeadUpProgressSheetDto>();
-                cfg.CreateMap<HeadDownProgressSheet, HeadDownProgressSheetDto>();
-            });
-            var progressSheetDto = config.CreateMapper().Map<ProgressSheetDto>(progressSheet);
+            var progressSheetDto = _mapper.Map<ProgressSheetDto>(progressSheet);
 
             return progressSheetDto;
         }
 
         public void Save(string firstName, string lastName, ProgressSheetDto progressSheetDto)
         {
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ProgressSheetDto, ProgressSheet>();
-                cfg.CreateMap<TrackProgressSheetDto, TrackProgressSheet>();
-                cfg.CreateMap<HeadUpProgressSheetDto, HeadUpProgressSheet>();
-                cfg.CreateMap<HeadDownProgressSheetDto, HeadDownProgressSheet>();
-            });
-
-            var progressSheet = config.CreateMapper().Map<ProgressSheet>(progressSheetDto);
-
+            var progressSheet = _mapper.Map<ProgressSheet>(progressSheetDto);
             _progressSheetRepository.Save(firstName, lastName, progressSheet);
         }
 

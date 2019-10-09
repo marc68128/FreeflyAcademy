@@ -53,9 +53,13 @@
                                     </Style.Triggers>
                                 </Style>
                             </Button.Style>
-                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="35" Text="{Binding FirstName}" />
-                                <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="35" Text="{Binding LastName}" />
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+                                <Viewbox Height="50" StretchDirection="DownOnly" Stretch="Uniform">
+                                    <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="35" Text="{Binding FirstName}" />
+                                </Viewbox>
+                                <Viewbox Height="50" StretchDirection="DownOnly" Stretch="Uniform">
+                                    <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="35" Text="{Binding LastName}" />
+                                </Viewbox>
                             </StackPanel>
                         </Button>
                     </DataTemplate>

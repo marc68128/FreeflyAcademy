@@ -23,9 +23,13 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Height="100" Width="100" Margin="2" Background="{StaticResource AccentColorBrush}">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock FontSize="18" HorizontalAlignment="Center" Foreground="White" Text="{Binding FirstName}"></TextBlock>
-                        <TextBlock FontSize="18" HorizontalAlignment="Center" Foreground="White" Text="{Binding LastName}"></TextBlock>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+                        <Viewbox Height="20" StretchDirection="DownOnly" Stretch="Uniform">
+                            <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="18" Text="{Binding FirstName}" />
+                        </Viewbox>
+                        <Viewbox Height="20" StretchDirection="DownOnly" Stretch="Uniform">
+                            <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="18" Text="{Binding LastName}" />
+                        </Viewbox>
                     </StackPanel>
                 </Grid>
 

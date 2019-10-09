@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace FreeflyAcademy.Views.UserControls
@@ -11,6 +12,7 @@ namespace FreeflyAcademy.Views.UserControls
     public partial class FolderPicker : UserControl
     {
         private Brush _textBoxInitialForeground;
+        private bool _shouldSelectAll;
 
         public FolderPicker()
         {
@@ -60,9 +62,30 @@ namespace FreeflyAcademy.Views.UserControls
 
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                Folder = dialog.FileName;
-                TextBox.Text = Folder;
+                //Folder = dialog.FileName;
+                TextBox.Text = dialog.FileName;
                 TextBox.Foreground = _textBoxInitialForeground;
+            }
+        }
+
+
+        private void TextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox.Foreground = _textBoxInitialForeground;
+            Folder = TextBox.Text;
+        }
+
+        private void TextBox_OnGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            _shouldSelectAll = true;
+        }
+
+        private void TextBox_OnGotMouseCapture(object sender, MouseEventArgs e)
+        {
+            if (_shouldSelectAll)
+            {
+                TextBox.SelectAll();
+                _shouldSelectAll = false;
             }
         }
     }

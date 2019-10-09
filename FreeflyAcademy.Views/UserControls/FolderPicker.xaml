@@ -4,7 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FreeflyAcademy.Views.UserControls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TextBox IsReadOnly="True" x:Name="TextBox" GotFocus="OpenFolderPicker"></TextBox>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBox  x:Name="TextBox" GotKeyboardFocus="TextBox_OnGotKeyboardFocus" GotMouseCapture="TextBox_OnGotMouseCapture" TextChanged="TextBox_OnTextChanged"></TextBox>
+        <Button Grid.Column="1" Click="OpenFolderPicker">
+            <iconPacks:PackIconMaterialLight FontSize="5" Height="12" Kind="Folder" />
+        </Button>
+    </Grid>
 </UserControl>

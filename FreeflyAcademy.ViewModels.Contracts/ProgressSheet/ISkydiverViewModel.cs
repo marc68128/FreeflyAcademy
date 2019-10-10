@@ -14,11 +14,14 @@ namespace FreeflyAcademy.ViewModels.Contracts.ProgressSheet
         int JumpsCount { get; set; }
         DateTime? SkydiveStartingDate { get; set; }
         DateTime? FreeflyStartingDate { get; set; }
+        string SelectedSubFolder { set; }
+        bool IsLoading { get; }
 
         ObservableCollection<IFileViewModel> Files { get; }
 
         ICommand OpenFolderCommand { get; }
         ICommand EditCommand { get; }
+        
 
         ISkydiverViewModel Initialize(string firstName, string lastName);
         void AddFiles(string[] filePaths);

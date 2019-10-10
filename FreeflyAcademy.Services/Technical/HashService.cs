@@ -6,8 +6,6 @@ namespace FreeflyAcademy.Services.Technical
 {
     internal class HashService : IHashService
     {
-
-
         public string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input

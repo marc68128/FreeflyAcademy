@@ -29,13 +29,15 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         private int _jumpsCount;
         private DateTime? _skydiveStartingDate;
         private DateTime? _freeflyStartingDate;
+        private string _selectedSubFolder = "Track";
+        private bool _isLoading;
 
         public SkydiverViewModel(IKernel kernel, IMapper mapper, ISkydiverService skydiverService, IFileCopierService fileCopierService) : base(kernel, mapper)
         {
             _skydiverService = skydiverService;
             _fileCopierService = fileCopierService;
 
-            Files = new ObservableCollection<IFileViewModel>(); 
+            Files = new ObservableCollection<IFileViewModel>();
 
             InitCommands();
         }
@@ -103,12 +105,31 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 OnPropertyChanged(nameof(FreeflyStartingDate));
             }
         }
+        public string SelectedSubFolder
+        {
+            private get => _selectedSubFolder;
+            set
+            {
+                _selectedSubFolder = value;
+                InitFiles();
+            }
+        }
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value; 
+                OnPropertyChanged();
+            }
+        }
 
-        public ObservableCollection<IFileViewModel> Files { get; private set; }
+        public ObservableCollection<IFileViewModel> Files { get; }
 
-        public ICommand OpenFolderCommand { get;  private set; }
+        public ICommand OpenFolderCommand { get; private set; }
         public ICommand EditCommand { get; private set; }
 
+        
         public ISkydiverViewModel Initialize(string firstName, string lastName)
         {
             var skydiverDto = _skydiverService.Get(firstName, lastName);
@@ -121,18 +142,7 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
             SkydiveStartingDate = skydiverDto.SkydiveStartingDate;
             PersonalRig = skydiverDto.PersonalRig;
 
-            if (!string.IsNullOrWhiteSpace(VideoDirectoryPath))
-            {
-                Files.Clear();
-
-                if (Directory.Exists(VideoDirectoryPath))
-                {
-                    Directory.GetFiles(VideoDirectoryPath)
-                        .OrderByDescending(File.GetCreationTime)
-                        .Select(path => _kernel.Get<IFileViewModel>().Initialize(path)).ToList()
-                        .ForEach(fileViewModel => Files.Add(fileViewModel));
-                }
-            }
+            InitFiles();
 
             return this;
         }
@@ -159,21 +169,28 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
                 return;
             }
 
+            var pathIncludingSubFolder = Path.Combine(VideoDirectoryPath, SelectedSubFolder);
+
+            if (!Directory.Exists(pathIncludingSubFolder))
+                Directory.CreateDirectory(pathIncludingSubFolder);
+
             var selectCoachModal = _kernel.Get<ISelectCoachModalViewModel>();
             selectCoachModal.CoachSelected += async (sender, model) =>
             {
+                IsLoading = true;
                 foreach (var filepath in filePaths)
                 {
-                    var newFilePath = Path.Combine(VideoDirectoryPath, $"{model.FirstName} {model.LastName}{Path.GetExtension(filepath)}");
-                    int incr = 1; 
+                    var newFilePath = Path.Combine(pathIncludingSubFolder, $"{model.FirstName} {model.LastName}{Path.GetExtension(filepath)}");
+                    int incr = 1;
                     while (File.Exists(newFilePath))
                     {
-                        newFilePath = Path.Combine(VideoDirectoryPath, $"{model.FirstName} {model.LastName} ({incr++}){Path.GetExtension(filepath)}");
+                        newFilePath = Path.Combine(pathIncludingSubFolder, $"{model.FirstName} {model.LastName} ({incr++}){Path.GetExtension(filepath)}");
                     }
                     await _fileCopierService.Copy(filepath, newFilePath);
 
                     this.Initialize(FirstName, LastName);
                 }
+                IsLoading = false;
             };
             Messenger.Default.Send<IModalViewModel>(selectCoachModal);
         }
@@ -182,6 +199,36 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
         {
             OpenFolderCommand = new RelayCommand(() => Process.Start("explorer", VideoDirectoryPath), () => Directory.Exists(VideoDirectoryPath));
             EditCommand = new RelayCommand(() => Messenger.Default.Send<IModalViewModel>(_kernel.Get<IEditSkydiverModalViewModel>().Initialize(FirstName, LastName)));
+        }
+
+        private void InitFiles()
+        {
+            if (!string.IsNullOrWhiteSpace(VideoDirectoryPath))
+            {
+                Files.Clear();
+
+                if (Directory.Exists(VideoDirectoryPath))
+                {
+                    if (!string.IsNullOrWhiteSpace(SelectedSubFolder))
+                    {
+                        var videoDirectoryPathWithSubFolder = Path.Combine(VideoDirectoryPath, SelectedSubFolder);
+                        if (Directory.Exists(videoDirectoryPathWithSubFolder))
+                        {
+                            Directory.GetFiles(videoDirectoryPathWithSubFolder)
+                                .OrderByDescending(File.GetCreationTime)
+                                .Select(path => _kernel.Get<IFileViewModel>().Initialize(path)).ToList()
+                                .ForEach(fileViewModel => Files.Add(fileViewModel));
+                        }
+                    }
+                    else
+                    {
+                        Directory.GetFiles(VideoDirectoryPath)
+                            .OrderByDescending(File.GetCreationTime)
+                            .Select(path => _kernel.Get<IFileViewModel>().Initialize(path)).ToList()
+                            .ForEach(fileViewModel => Files.Add(fileViewModel));
+                    }
+                }
+            }
         }
     }
 }

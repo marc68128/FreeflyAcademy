@@ -18,9 +18,14 @@
             <Grid Height="104">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
 
                 <Grid Height="100" Width="100" Margin="2" Background="{StaticResource AccentColorBrush}">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
@@ -33,7 +38,16 @@
                     </StackPanel>
                 </Grid>
 
-                <ListView ItemsSource="{Binding Files}" BorderThickness="0" Margin="10" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden" behaviours:ScrollViewerBehaviour.ShiftWheelScrollsHorizontally="True">
+                <Button x:Name="LeftButton" Grid.Column="1" Margin="5,10,0,10">
+                    <iconPacks:PackIconMaterialLight Margin="0" Kind="ChevronDoubleLeft" />
+                </Button>
+
+                <ListView ItemsSource="{Binding Files}" BorderThickness="0" Margin="10" Grid.Column="2" 
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                          behaviours:ScrollViewerBehaviour.ShiftWheelScrollsHorizontally="True" 
+                          behaviours:ScrollViewerBehaviour.ScrollRightButton="{Binding ElementName=RightButton}"
+                          behaviours:ScrollViewerBehaviour.ScrollLeftButton="{Binding ElementName=LeftButton}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="Background" Value="Transparent" />
@@ -63,7 +77,11 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Border Grid.Column="2" Margin="0,10" BorderThickness="1,0,0,0" BorderBrush="{StaticResource AccentColorBrush}">
+                <Button x:Name="RightButton" Grid.Column="3" Margin="0,10,5,10">
+                    <iconPacks:PackIconMaterialLight Margin="0" Kind="ChevronDoubleRight" />
+                </Button>
+
+                <Border Grid.Column="4" Margin="0,10" BorderThickness="1,0,0,0" BorderBrush="{StaticResource AccentColorBrush}">
                     <Grid Margin="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"></RowDefinition>
@@ -77,6 +95,8 @@
                         </Button>
                     </Grid>
                 </Border>
+
+                <mah:MetroProgressBar VerticalAlignment="Bottom" Grid.Column="1" Grid.ColumnSpan="4" IsIndeterminate="True" Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"></mah:MetroProgressBar>
             </Grid>
         </Border>
 

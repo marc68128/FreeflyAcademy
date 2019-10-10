@@ -46,8 +46,7 @@ namespace FreeflyAcademy.ViewModels.ProgressSheet
             get => _validated;
             set
             {
-                if (_validated == false && value)
-                    _validated = true;
+                _validated = value;
                 OnPropertyChanged();
             }
         }

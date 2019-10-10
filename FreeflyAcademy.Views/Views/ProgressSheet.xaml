@@ -9,6 +9,10 @@
                     xmlns:progressSheet="clr-namespace:FreeflyAcademy.ViewModels.Contracts.ProgressSheet;assembly=FreeflyAcademy.ViewModels.Contracts">
 
     <DataTemplate DataType="{x:Type progressSheet:IProgressSheetViewModel}">
+        <DataTemplate.Resources>
+            <converters:TabItemToHeaderConverter x:Key="TabItemToHeaderConverter"></converters:TabItemToHeaderConverter>
+        </DataTemplate.Resources>
+
         <Grid AllowDrop="True" behaviours:DragDropBehaviour.IsFileDragDropEnabled="True" behaviours:DragDropBehaviour.FileDragDropTarget="{Binding}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -17,7 +21,7 @@
 
             <ContentPresenter Grid.Row="0" Content="{Binding SkydiverViewModel}" ContentTemplateSelector="{DynamicResource InterfaceTemplateSelector}"></ContentPresenter>
 
-            <TabControl Grid.Row="1" Margin="10,0,10,0">
+            <TabControl Grid.Row="1" Margin="10,0,10,0" SelectedValue="{Binding SkydiverViewModel.SelectedSubFolder, Mode=OneWayToSource, Converter={StaticResource TabItemToHeaderConverter}}">
                 <TabItem Header="Track" Grid.IsSharedSizeScope="True">
                     <ContentPresenter Content="{Binding TrackProgressSheetViewModel}" ContentTemplateSelector="{DynamicResource InterfaceTemplateSelector}"></ContentPresenter>
                 </TabItem>
